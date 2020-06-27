@@ -1,9 +1,9 @@
-# chess
-# author: Nikolai Long
-# ################################################## #
-# COPYRIGHT:                                         #
-#           igor's library                           #
-# ################################################## #
+author: Nikolai Long
+###################################################
+## COPYRIGHT:                                    ##
+##          igor's library                       ##
+###################################################
+
 
 Prerequisites:
 - Python 3 (3.8 or up prefered)
@@ -12,13 +12,15 @@ Prerequisites:
     - abc
     - ...
 
+
 To Do:
 - Play two or one player? $<Controls/play.py> or $<Controls\play.py>
 - Test piece movement for accuracy? $<Controls/test.py> or $<Controls\test.py>
 - Run the neural network to teach the computer how to play? $<Controls/nn.py> or $<Controls\nn.py>
 [depending on your system]
 
-Structure{
+
+# Structure ###################################################
 > Controls
     - test
     - play
@@ -33,15 +35,15 @@ Structure{
     - player
 > Storage [TBD]
     - nnData [TBD]
-}
 
-Connectivity{
+
+# Connectivity ###################################################
 ~ Controls | HAVE | Physical
            | USE  | Turns
 ~ Turns    | USE  | Physical
-}
 
-Controls Hierarchy{
+
+# Controls Hierarchy ###################################################
 test
   |
 board
@@ -55,9 +57,9 @@ board human computer
    ___|___
   |      |
 board computer
-}
 
-Turns Hierarchy{
+
+# Turns Hierarchy ###################################################
 human
   |
 board
@@ -66,9 +68,9 @@ board
    __|___
   |     |
 board nnData
-}
 
-Physical Hierarchy (circular connectivity){
+
+# Physical Hierarchy (circular connectivity) ###################################################
     board
    ___|___
   |      |
@@ -82,4 +84,3 @@ moves
 pieces moves
   |
 moves
-}
