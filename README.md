@@ -14,9 +14,9 @@
 
 #### To Do:
 * Move to Controls Directory:
-    * Play one or two player chess? $<play.py> or $<play.py>
-    * Test piece movement for accuracy? $<test.py> or $<test.py>
-    * Run the neural network to teach the computer how to play? $<nn.py> or $<nn.py>
+    * Play one or two player chess? $<play.py>
+    * Test piece movement for accuracy? $<test.py>
+    * Run the neural network to teach the computer how to play? $<nn.py>
 
 #### Repository:
 Item | Description
