@@ -11,40 +11,72 @@ from player import *
 # inherets object class
 #
 class Board(object):
+    # initialize
     def __init__(self):
         print("pulled a board off the shelf,")
         self.grid = np.zeros((8,8), Piece)
-        self.addPieces()
+        self.newPieces()
+        self.wPlayer = Player('w', self.wPieces)
+        self.bPlayer = Player('b', self.bPieces)
         self.gameOver = False
         self.turnNum = 1
         self.log = []
 
-    # add pieces for the begining of a game
-    def addPieces(self):
+    # create new pieces in their starting positions
+    def newPieces(self):
         print("and dusted off pieces; enjoy.. \n")
+        self.wPieces = []
+        self.bPieces = []
+        self.empty = []
         for i in range(8):
-            self.grid[1,i] = Pawn('b',(1,i), self.grid)
-            self.grid[2,i] = Empty((2,i))
-            self.grid[3,i] = Empty((3,i))
-            self.grid[4,i] = Empty((4,i))
-            self.grid[5,i] = Empty((5,i))
-            self.grid[6,i] = Pawn('w',(6,i), self.grid)
+            self.wPieces.append(Pawn('w',(1,i)))
+            self.bPieces.append(Pawn('b',(6,i)))
         for i in [0,7]:
-            self.grid[0,i] = Rook('b',(0,i))
-            self.grid[7,i] = Rook('w',(7,i))
+            self.wPieces.append(Rook('w',(0,i)))
+            self.bPieces.append(Rook('b',(7,i)))
         for i in [1,6]:
-            self.grid[0,i] = Knight('b',(0,i))
-            self.grid[7,i] = Knight('w',(7,i))
+            self.wPieces.append(Knight('w',(0,i)))
+            self.bPieces.append(Knight('b',(7,i)))
         for i in [2,5]:
-            self.grid[0,i] = Bishop('b',(0,i))
-            self.grid[7,i] = Bishop('w',(7,i))
-        self.grid[0,3] = Queen('b',(0,3))
-        self.grid[7,3] = Queen('w',(7,3))
-        self.grid[0,4] = King('b',(0,4))
-        self.grid[7,4] = King('w',(7,4))
+            self.wPieces.append(Bishop('w',(0,i)))
+            self.bPieces.append(Bishop('b',(7,i)))
+        self.wPieces.append(Queen('w',(0,3)))
+        self.bPieces.append(Queen('b',(7,3)))
+        self.wPieces.append(King('w',(0,4)))
+        self.bPieces.append(King('b',(7,4)))
+        for i in range(8):
+            self.empty.append(Empty((2,i)))
+            self.empty.append(Empty((3,i)))
+            self.empty.append(Empty((4,i)))
+            self.empty.append(Empty((5,i)))
 
-    # board display methods
+    # piece movement method
+    def move(self, place, dest):
+        position = place.position
+        place.position = dest.position
+        dest.position = position
+
+    # piece capture method
+    def capture(self, place, dest):
+        position = place.position
+        place.position = dest.position
+        if dest.color == 'w':
+            self.wPieces.remove(dest)
+        elif dest.color == 'b':
+            self.bPieces.remove(dest)
+        else:
+            print('color assignment error')
+            quit()
+        self.empty.append(Empty(position))
+
+    # prints the board
     def display(self):
+        for p in self.wPieces:
+            self.grid[self.flipCoordinates(p.position[0]), p.position[1]] = p
+        for p in self.bPieces:
+            self.grid[self.flipCoordinates(p.position[0]), p.position[1]] = p
+        for e in self.empty:
+            self.grid[self.flipCoordinates(e.position[0]), e.position[1]] = e
         sides = '____'
         topVerts = '         '
         print(sides.join(topVerts))
@@ -66,24 +98,16 @@ class Board(object):
         print(sides.join('1||||||||'))
         print(" A    B    C    D    E    F    G    H")
 
+    # flip the coordinates to account for numpy grid
+    def flipCoordinates(self, y):
+        y = 4 - (y - 3)
+        return y
+
+    # prints a row with peices
     def printSpecial(self, row):
         print("| %s | %s | %s | %s | %s | %s | %s | %s |" %
             (self.grid[row,0].display(), self.grid[row,1].display(), self.grid[row,2].display(),
             self.grid[row,3].display(), self.grid[row,4].display(), self.grid[row,5].display(),
             self.grid[row,6].display(), self.grid[row,7].display()))
-
-    # piece movement method
-    def move(self, p1, p2, d1, d2):
-        pass
-
-    # test methods
-    def addEmpty(self):
-        for r in range(8):
-            for c in range(8):
-                self.grid[r,c] = Empty((r,c))
-
-    def addOne(self, p, r, c):
-        self.grid[r, c] = p
-        self.display()
 #
 # End: Board Class #######################################################################################

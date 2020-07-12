@@ -9,17 +9,26 @@
 # 4. improve input system: Nf3
 
 import sys
-sys.path.append("./Physical")
+sys.path.append("../Physical")
 from board import *
+from player import *
 from pieces import *
 from moves import *
 
-# initialize an empty board ###################################################################
-board = Board()
-board.addEmpty()
-board.display()
+# test methods #################################################################################
+# test general board movement methods
+def move(board):
+    board.move(board.wPieces[0], board.empty[12])
+    print('number of white pieces:', len(board.wPieces))
+    print('number of black pieces:', len(board.bPieces))
+    print('number of empty pieces:', len(board.empty))
 
-# test pieces #################################################################################
+def capture(board):
+    board.capture(board.wPieces[0], board.bPieces[0])
+    print('number of white pieces:', len(board.wPieces))
+    print('number of black pieces:', len(board.bPieces))
+    print('number of empty pieces:', len(board.empty))
+
 # test pawn
 def testPawnSwap():
     pass
@@ -28,36 +37,53 @@ def testPawnCapture():
     pass
 
 # test knight
-def testPawnSwap():
+def testKnightSwap():
     pass
 
-def testPawnCapture():
+def testKnightCapture():
     pass
 
 # test bishop
-def testPawnSwap():
+def testBishopSwap():
     pass
 
-def testPawnCapture():
+def testBishopCapture():
     pass
 
 # test rook
-def testPawnSwap():
+def testRookSwap():
     pass
 
-def testPawnCapture():
+def testRookCapture():
     pass
 
 # test queen
-def testPawnSwap():
+def testQueenSwap():
     pass
 
-def testPawnCapture():
+def testQueenapture():
     pass
 
 # test king
-def testPawnSwap():
+def testKingSwap():
     pass
 
-def testPawnCapture():
+def testKingCapture():
     pass
+
+# initialize an empty board ###################################################################
+board = Board()
+#for r in range(8):
+#    for c in range(8):
+#        board.grid[r,c] = Empty((r,c))
+#board.grid[3,3] = Pawn('b', (3,3))
+board.display()
+print('number of white pieces:', len(board.wPieces))
+print('number of black pieces:', len(board.bPieces))
+print('number of empty pieces:', len(board.empty))
+#move(board)
+#capture(board)
+#print(board.wPieces[0].allDestinations)
+#print(board.bPieces[0].allDestinations)
+#board.bPieces[15].displayMoves()
+#board.display()

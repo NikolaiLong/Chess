@@ -3,10 +3,10 @@
 ## plays a chess game
 
 import sys
-sys.path.append("./Turns")
+sys.path.append("../Turns")
 from human import *
 from computer import *
-sys.path.append("./Physical")
+sys.path.append("../Physical")
 from board import *
 
 # define a two player game ############################################################################
