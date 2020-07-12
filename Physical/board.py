@@ -72,11 +72,11 @@ class Board(object):
     # prints the board
     def display(self):
         for p in self.wPieces:
-            self.grid[self.flipCoordinates(p.position[0]), p.position[1]] = p
+            self.grid[7-p.position[0], p.position[1]] = p
         for p in self.bPieces:
-            self.grid[self.flipCoordinates(p.position[0]), p.position[1]] = p
+            self.grid[7-p.position[0], p.position[1]] = p
         for e in self.empty:
-            self.grid[self.flipCoordinates(e.position[0]), e.position[1]] = e
+            self.grid[7-e.position[0], e.position[1]] = e
         sides = '____'
         topVerts = '         '
         print(sides.join(topVerts))
@@ -97,11 +97,6 @@ class Board(object):
         self.printSpecial(7)
         print(sides.join('1||||||||'))
         print(" A    B    C    D    E    F    G    H")
-
-    # flip the coordinates to account for numpy grid
-    def flipCoordinates(self, y):
-        y = 4 - (y - 3)
-        return y
 
     # prints a row with peices
     def printSpecial(self, row):
