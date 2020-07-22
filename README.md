@@ -26,3 +26,6 @@ Physical | Directory for the source code abstractions of physical chess elements
 Storage | Directory to store all neural network data
 Turns | Directory for the source code abstractions for a turn in a chess game
 info.txt | File with a brief overview of the connectivity of the abstractions
+
+#### Disclaimer:
+All coordinates in code are in (x,y) i.e. (column,row) format - then are transformed when printed

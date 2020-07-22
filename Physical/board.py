@@ -16,8 +16,8 @@ class Board(object):
         print("pulled a board off the shelf,")
         self.grid = np.zeros((8,8), Piece)
         self.newPieces()
-        self.wPlayer = Player('w', self.wPieces)
-        self.bPlayer = Player('b', self.bPieces)
+        self.wPlayer = Player('w', self.wPieces, self)
+        self.bPlayer = Player('b', self.bPieces, self)
         self.gameOver = False
         self.turnNum = 1
         self.log = []
@@ -29,26 +29,27 @@ class Board(object):
         self.bPieces = []
         self.empty = []
         for i in range(8):
-            self.wPieces.append(Pawn('w',(1,i)))
-            self.bPieces.append(Pawn('b',(6,i)))
+            self.wPieces.append(Pawn('w',(i,1)))
+            self.bPieces.append(Pawn('b',(i,6)))
         for i in [0,7]:
-            self.wPieces.append(Rook('w',(0,i)))
-            self.bPieces.append(Rook('b',(7,i)))
+            self.wPieces.append(Rook('w',(i,0)))
+            self.bPieces.append(Rook('b',(i,7)))
         for i in [1,6]:
-            self.wPieces.append(Knight('w',(0,i)))
-            self.bPieces.append(Knight('b',(7,i)))
+            self.wPieces.append(Knight('w',(i,0)))
+            self.bPieces.append(Knight('b',(i,7)))
         for i in [2,5]:
-            self.wPieces.append(Bishop('w',(0,i)))
-            self.bPieces.append(Bishop('b',(7,i)))
-        self.wPieces.append(Queen('w',(0,3)))
-        self.bPieces.append(Queen('b',(7,3)))
-        self.wPieces.append(King('w',(0,4)))
-        self.bPieces.append(King('b',(7,4)))
+            self.wPieces.append(Bishop('w',(i,0)))
+            self.bPieces.append(Bishop('b',(i,7)))
+        self.wPieces.append(Queen('w',(3,0)))
+        self.bPieces.append(Queen('b',(3,7)))
+        self.wPieces.append(King('w',(4,0)))
+        self.bPieces.append(King('b',(4,7)))
         for i in range(8):
-            self.empty.append(Empty((2,i)))
-            self.empty.append(Empty((3,i)))
-            self.empty.append(Empty((4,i)))
-            self.empty.append(Empty((5,i)))
+            self.empty.append(Empty((i,2)))
+            self.empty.append(Empty((i,3)))
+            self.empty.append(Empty((i,4)))
+            self.empty.append(Empty((i,5)))
+        self.allPieces = self.wPieces + self.bPieces + self.empty
 
     # piece movement method
     def move(self, place, dest):
@@ -69,14 +70,20 @@ class Board(object):
             quit()
         self.empty.append(Empty(position))
 
+    def findPiece(self, position):
+        for p in self.allPieces:
+            if p.position == position:
+                return p
+        return None
+
     # prints the board
     def display(self):
         for p in self.wPieces:
-            self.grid[7-p.position[0], p.position[1]] = p
+            self.grid[7-p.position[1], p.position[0]] = p
         for p in self.bPieces:
-            self.grid[7-p.position[0], p.position[1]] = p
+            self.grid[7-p.position[1], p.position[0]] = p
         for e in self.empty:
-            self.grid[7-e.position[0], e.position[1]] = e
+            self.grid[7-e.position[1], e.position[0]] = e
         sides = '____'
         topVerts = '         '
         print(sides.join(topVerts))

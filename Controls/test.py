@@ -15,75 +15,153 @@ from player import *
 from pieces import *
 from moves import *
 
-# test methods #################################################################################
-# test general board movement methods
-def move(board):
-    board.move(board.wPieces[0], board.empty[12])
+# basic tests #################################################################################
+def initi(board):
+    print('INITIALIZE')
+    board.display()
     print('number of white pieces:', len(board.wPieces))
     print('number of black pieces:', len(board.bPieces))
     print('number of empty pieces:', len(board.empty))
+    print()
 
-def capture(board):
-    board.capture(board.wPieces[0], board.bPieces[0])
+def move(board, place, dest):
+    print('MOVE')
+    board.move(board.wPieces[place], board.empty[dest])
     print('number of white pieces:', len(board.wPieces))
     print('number of black pieces:', len(board.bPieces))
     print('number of empty pieces:', len(board.empty))
+    board.display()
+    print()
 
-# test pawn
-def testPawnSwap():
+def capture(board, place, dest):
+    print('CAPTURE')
+    board.capture(board.wPieces[place], board.bPieces[dest])
+    print('number of white pieces:', len(board.wPieces))
+    print('number of black pieces:', len(board.bPieces))
+    print('number of empty pieces:', len(board.empty))
+    board.display()
+    print()
+
+def allDestinations(board, num):
+    print('ALL DESTINATIONS')
+    print('WHITE:', num)
+    print(board.wPieces[num].allDestinations)
+    print('BLACK', num)
+    print(board.bPieces[num].allDestinations)
+    board.display()
+    print()
+
+# basic test call
+def basicTests():
+    board = Board()
+    initi(board)
+    move(board, 0, 12)
+    capture(board, 0, 0)
+    allDestinations(board, 0)
+
+# test players #############################################################################
+def testPlayers():
+    board = Board()
+    board.display()
+    print('\nWHITE MOVES')
+    board.wPlayer.displayMoves()
+    print('\nBLACK MOVES')
+    board.bPlayer.displayMoves()
+
+# test pawn #################################################################################
+def testPawnSwap(board, color, num):
+    if color == 'w':
+        place = board.wPieces[2]
+    elif color == 'b':
+        place = board.bPieces[2]
+    else:
+        print("something went wrong")
+        quit()
+    dest = place.allDestinations[num]
+    for e in board.empty:
+        if e.position == dest:
+            dest = e
+    board.move(place, dest)
+    board.display()
+
+def testPawnCapture(board, color, num):
     pass
 
-def testPawnCapture():
-    pass
+# pawn test call
+def pawnTests():
+    # WHITE #
+    # move forward 1
+    print('\n1\nmoving white c pawn 1')
+    board = Board()
+    testPawnSwap(board, 'w', 0)
+    # move forward 2
+    print('\n2\nmoving white c pawn 2')
+    board = Board()
+    testPawnSwap(board, 'w', 1)
+    # capture left
+    print('\n3\ncapturing with white c pawn on left')
+    board = Board()
+    testPawnCapture(board, 'w', 2)
+    # capture right
+    print('\n4\ncapturing with white c pawn on right')
+    board = Board()
+    testPawnCapture(board, 'w', 3)
 
-# test knight
+    # BLACK #
+    # move forward 1
+    print('\n1\nmoving black c pawn 1')
+    board = Board()
+    testPawnSwap(board, 'b', 0)
+    # move forward 2
+    print('\n2\nmoving black c pawn 2')
+    board = Board()
+    testPawnSwap(board, 'b', 1)
+    # capture left
+    print('\n3\ncapturing with black c pawn on left')
+    board = Board()
+    testPawnCapture(board, 'b', 2)
+    # capture right
+    print('\n4\ncapturing with black c pawn on right')
+    board = Board()
+    testPawnCapture(board, 'b', 3)
+
+# test knight #################################################################################
 def testKnightSwap():
     pass
 
 def testKnightCapture():
     pass
 
-# test bishop
+# test bishop #################################################################################
 def testBishopSwap():
     pass
 
 def testBishopCapture():
     pass
 
-# test rook
+# test rook #################################################################################
 def testRookSwap():
     pass
 
 def testRookCapture():
     pass
 
-# test queen
+# test queen #################################################################################
 def testQueenSwap():
     pass
 
 def testQueenapture():
     pass
 
-# test king
+# test king #################################################################################
 def testKingSwap():
     pass
 
 def testKingCapture():
     pass
 
-# initialize an empty board ###################################################################
-board = Board()
-#for r in range(8):
-#    for c in range(8):
-#        board.grid[r,c] = Empty((r,c))
-#board.grid[3,3] = Pawn('b', (3,3))
-board.display()
-print('number of white pieces:', len(board.wPieces))
-print('number of black pieces:', len(board.bPieces))
-print('number of empty pieces:', len(board.empty))
-#move(board)
-#capture(board)
-#print(board.wPieces[0].allDestinations)
-#print(board.bPieces[0].allDestinations)
-#board.bPieces[15].displayMoves()
-#board.display()
+# call tests #################################################################################
+print("##########################################################################################")
+#basicTests()
+#pawnTests()
+testPlayers()
