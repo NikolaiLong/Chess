@@ -16,8 +16,8 @@ class Board(object):
         print("pulled a board off the shelf,")
         self.grid = np.zeros((8,8), Piece)
         self.newPieces()
-        self.wPlayer = Player('w', self.wPieces, self)
-        self.bPlayer = Player('b', self.bPieces, self)
+        self.wPlayer = Player('w', self)
+        self.bPlayer = Player('b', self)
         self.gameOver = False
         self.turnNum = 1
         self.log = []

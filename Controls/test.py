@@ -64,9 +64,19 @@ def testPlayers():
     board = Board()
     board.display()
     print('\nWHITE MOVES')
+    print(len(board.wPlayer.validMoves))
     board.wPlayer.displayMoves()
     print('\nBLACK MOVES')
+    print(len(board.bPlayer.validMoves))
     board.bPlayer.displayMoves()
+    move(board, 2, 8)
+    board.wPlayer.pieces[2].hasMoved = True
+    board.wPlayer.findAllPieces()
+    board.wPlayer.findAllDestinations()
+    board.wPlayer.findValidMoves()
+    print('\nWHITE MOVES')
+    print(len(board.wPlayer.validMoves))
+    board.wPlayer.displayMoves()
 
 # test pawn #################################################################################
 def testPawnSwap(board, color, num):

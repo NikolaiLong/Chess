@@ -9,14 +9,30 @@ from moves import *
 #
 class Player():
     # initialize
-    def __init__(self, color, pieces, board):
+    def __init__(self, color, board):
         self.status = 'n'
         self.color = color
-        self.pieces = pieces
         self.board = board
+        self.findAllPieces()
+        self.findAllDestinations()
         self.findValidMoves()
 
-    # find valid moves - rules check
+    # find all remaining pieces from the board
+    def findAllPieces(self):
+        if(self.color == 'w'):
+            self.pieces = self.board.wPieces
+        elif(self.color == 'b'):
+            self.pieces = self.board.bPieces
+        else:
+            print("color error")
+            quit()
+
+    # find all the desinations of the remaining pieces
+    def findAllDestinations(self):
+        for p in self.pieces:
+            p.generatePossibleDestinations()
+
+    # find all the valid moves from the destinations of the remaining pieces
     def findValidMoves(self):
         self.validMoves = []
 
@@ -56,7 +72,7 @@ class Player():
                 for num in range(7):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -65,7 +81,7 @@ class Player():
                 for num in range(7,14):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -74,7 +90,7 @@ class Player():
                 for num in range(14, 21):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -83,7 +99,7 @@ class Player():
                 for num in range(21, 28):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -106,7 +122,7 @@ class Player():
                 for num in range(7):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -115,7 +131,7 @@ class Player():
                 for num in range(7,14):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -124,7 +140,7 @@ class Player():
                 for num in range(14, 21):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -133,7 +149,7 @@ class Player():
                 for num in range(21, 28):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -142,7 +158,7 @@ class Player():
                 for num in range(28, 35):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -151,7 +167,7 @@ class Player():
                 for num in range(35, 42):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -160,7 +176,7 @@ class Player():
                 for num in range(42, 49):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -169,7 +185,7 @@ class Player():
                 for num in range(49, 56):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                         break
@@ -183,7 +199,7 @@ class Player():
                 for num in range(8):
                     d = self.board.findPiece(p.allDestinations[num])
                     if(d != None and type(d) == Empty):
-                        self.vaildMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m',self.board)) # move
                     elif(d != None and type(d) != Empty and p.color != d.color):
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
                 if not p.hasMoved:
