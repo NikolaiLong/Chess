@@ -36,7 +36,8 @@ class Empty(Piece):
 #
 class Pawn(Piece):
     # initialize
-    def __init__(self, color, position):
+    def __init__(self, color, position, id):
+        self.id = id
         self.color = color
         self.position = position
         self.hasMoved = False
@@ -69,7 +70,8 @@ class Pawn(Piece):
 #
 class Rook(Piece):
     # initialize
-    def __init__(self, color, position):
+    def __init__(self, color, position, id):
+        self.id = id
         self.color = color
         self.position = position
         self.hasMoved = False
@@ -115,7 +117,8 @@ class Rook(Piece):
 # Begin: Knight Class #######################################################################################
 #
 class Knight(Piece):
-    def __init__(self, color, position):
+    def __init__(self, color, position, id):
+        self.id = id
         self.color = color
         self.position = position
         self.hasMoved = False
@@ -142,7 +145,8 @@ class Knight(Piece):
 #
 class Bishop(Piece):
     # initialize
-    def __init__(self, color, position):
+    def __init__(self, color, position, id):
+        self.id = id
         self.color = color
         self.position = position
         self.hasMoved = False
@@ -189,7 +193,8 @@ class Bishop(Piece):
 #
 class Queen(Piece):
     # initialize
-    def __init__(self, color, position):
+    def __init__(self, color, position, id):
+        self.id = id
         self.color = color
         self.position = position
         self.hasMoved = False
@@ -264,7 +269,8 @@ class Queen(Piece):
 #
 class King(Piece):
     # initialize
-    def __init__(self, color, position):
+    def __init__(self, color, position, id):
+        self.id = id
         self.color = color
         self.position = position
         self.hasMoved = False
@@ -282,8 +288,8 @@ class King(Piece):
                                 tuple(map(sum, zip(self.position,(1,1)))),
                                 tuple(map(sum, zip(self.position,(1,-1)))),
                                 tuple(map(sum, zip(self.position,(-1,1)))),
-                                tuple(map(sum, zip(self.position,(0,-2)))), # castling, 8
-                                tuple(map(sum, zip(self.position,(0,2)))),]
+                                tuple(map(sum, zip(self.position,(-2,0)))), # castling, 8
+                                tuple(map(sum, zip(self.position,(2,0)))),]
 
     # display self
     def display(self):

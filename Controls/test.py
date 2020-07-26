@@ -33,9 +33,27 @@ def move(board, place, dest):
     board.display()
     print()
 
+def moveB(board, place, dest):
+    print('MOVE')
+    board.move(board.bPieces[place], board.empty[dest])
+    print('number of white pieces:', len(board.wPieces))
+    print('number of black pieces:', len(board.bPieces))
+    print('number of empty pieces:', len(board.empty))
+    board.display()
+    print()
+
 def capture(board, place, dest):
     print('CAPTURE')
     board.capture(board.wPieces[place], board.bPieces[dest])
+    print('number of white pieces:', len(board.wPieces))
+    print('number of black pieces:', len(board.bPieces))
+    print('number of empty pieces:', len(board.empty))
+    board.display()
+    print()
+
+def captureB(board, place, dest):
+    print('CAPTURE')
+    board.capture(board.bPieces[place], board.wPieces[dest])
     print('number of white pieces:', len(board.wPieces))
     print('number of black pieces:', len(board.bPieces))
     print('number of empty pieces:', len(board.empty))
@@ -60,23 +78,217 @@ def basicTests():
     allDestinations(board, 0)
 
 # test players #############################################################################
-def testPlayers():
+def testKing():
     board = Board()
     board.display()
+
+    input('\nwhite to move')
     print('\nWHITE MOVES')
     print(len(board.wPlayer.validMoves))
     board.wPlayer.displayMoves()
+    move(board, 2, 9)
+    board.wPlayer.pieces[2].hasMoved = True
+    
+    input('\nblack to move')
     print('\nBLACK MOVES')
+    board.bPlayer.findAllPieces()
+    board.bPlayer.findAllDestinations()
+    board.bPlayer.findValidMoves()
     print(len(board.bPlayer.validMoves))
     board.bPlayer.displayMoves()
-    move(board, 2, 8)
-    board.wPlayer.pieces[2].hasMoved = True
+    moveB(board, 3, 14)
+    board.bPlayer.pieces[3].hasMoved = True
+
+    input('\nwhite to move')
+    print('\nWHITE MOVES')
     board.wPlayer.findAllPieces()
     board.wPlayer.findAllDestinations()
     board.wPlayer.findValidMoves()
-    print('\nWHITE MOVES')
     print(len(board.wPlayer.validMoves))
     board.wPlayer.displayMoves()
+    capture(board, 2, 3)
+    board.wPlayer.pieces[2].hasMoved = True
+
+    input('\nblack to move')
+    print('\nBLACK MOVES')
+    board.bPlayer.findAllPieces()
+    board.bPlayer.findAllDestinations()
+    board.bPlayer.findValidMoves()
+    print(len(board.bPlayer.validMoves))
+    board.bPlayer.displayMoves()
+    captureB(board, 13, 2)
+    board.bPlayer.pieces[13].hasMoved = True
+
+    input('\nwhite to move')
+    print('\nWHITE MOVES')
+    board.wPlayer.findAllPieces()
+    board.wPlayer.findAllDestinations()
+    board.wPlayer.findValidMoves()
+    print(len(board.wPlayer.validMoves))
+    board.wPlayer.displayMoves()
+    move(board, 9, 8)
+    board.wPlayer.pieces[9].hasMoved = True
+
+    input('\nblack to move')
+    print('\nBLACK MOVES')
+    board.bPlayer.findAllPieces()
+    board.bPlayer.findAllDestinations()
+    board.bPlayer.findValidMoves()
+    print(len(board.bPlayer.validMoves))
+    board.bPlayer.displayMoves()
+    moveB(board, 13, 30)
+    board.bPlayer.pieces[13].hasMoved = True
+
+    input('\nwhite to move')
+    print('\nWHITE MOVES')
+    board.wPlayer.findAllPieces()
+    board.wPlayer.findAllDestinations()
+    board.wPlayer.findValidMoves()
+    print(len(board.wPlayer.validMoves))
+    board.wPlayer.displayMoves()
+    move(board, 9, 17)
+    board.wPlayer.pieces[9].hasMoved = True
+
+    input('\nblack to move')
+    print('\nBLACK MOVES')
+    board.bPlayer.findAllPieces()
+    board.bPlayer.findAllDestinations()
+    board.bPlayer.findValidMoves()
+    print(len(board.bPlayer.validMoves))
+    board.bPlayer.displayMoves()
+    moveB(board, 13, 29)
+    board.bPlayer.pieces[13].hasMoved = True
+
+    input('\nwhite to move')
+    print('\nWHITE MOVES')
+    board.wPlayer.findAllPieces()
+    board.wPlayer.findAllDestinations()
+    board.wPlayer.findValidMoves()
+    print(len(board.wPlayer.validMoves))
+    board.wPlayer.displayMoves()
+    move(board, 9, 15)
+    board.wPlayer.pieces[9].hasMoved = True
+
+    input('\nblack to move')
+    print('\nBLACK MOVES')
+    board.bPlayer.findAllPieces()
+    board.bPlayer.findAllDestinations()
+    board.bPlayer.findValidMoves()
+    print(len(board.bPlayer.validMoves))
+    board.bPlayer.displayMoves()
+    moveB(board, 14, 33)
+    board.bPlayer.pieces[14].hasMoved = True
+
+    input('\nwhite to move')
+    print('\nWHITE MOVES')
+    board.wPlayer.findAllPieces()
+    board.wPlayer.findAllDestinations()
+    board.wPlayer.findValidMoves()
+    print(len(board.wPlayer.validMoves))
+    board.wPlayer.displayMoves()
+    move(board, 13, 9)
+    board.wPlayer.pieces[13].hasMoved = True
+
+    input('\nblack to move')
+    print('\nBLACK MOVES')
+    board.bPlayer.findAllPieces()
+    board.bPlayer.findAllDestinations()
+    board.bPlayer.findValidMoves()
+    print(len(board.bPlayer.validMoves))
+    board.bPlayer.displayMoves()
+    moveB(board, 11, 25)
+    board.bPlayer.pieces[11].hasMoved = True
+
+    input('\nwhite to move')
+    print('\nWHITE MOVES')
+    board.wPlayer.findAllPieces()
+    board.wPlayer.findAllDestinations()
+    board.wPlayer.findValidMoves()
+    print(len(board.wPlayer.validMoves))
+    board.wPlayer.displayMoves()
+    move(board, 1, 4)
+    board.wPlayer.pieces[1].hasMoved = True
+
+    input('\nblack to move')
+    print('\nBLACK MOVES')
+    board.bPlayer.findAllPieces()
+    board.bPlayer.findAllDestinations()
+    board.bPlayer.findValidMoves()
+    print(len(board.bPlayer.validMoves))
+    board.bPlayer.displayMoves()
+    moveB(board, 9, 11)
+    board.bPlayer.pieces[9].hasMoved = True
+
+    input('\nwhite to move')
+    print('\nWHITE MOVES')
+    board.wPlayer.findAllPieces()
+    board.wPlayer.findAllDestinations()
+    board.wPlayer.findValidMoves()
+    print(len(board.wPlayer.validMoves))
+    board.wPlayer.displayMoves()
+    move(board, 11, 4)
+    board.wPlayer.pieces[11].hasMoved = True
+
+    input('\nblack to move')
+    print('\nBLACK MOVES')
+    board.bPlayer.findAllPieces()
+    board.bPlayer.findAllDestinations()
+    board.bPlayer.findValidMoves()
+    print(len(board.bPlayer.validMoves))
+    board.bPlayer.displayMoves()
+    moveB(board, 5, 27)
+    board.bPlayer.pieces[5].hasMoved = True
+
+    input('\nwhite to move')
+    print('\nWHITE MOVES')
+    board.wPlayer.findAllPieces()
+    board.wPlayer.findAllDestinations()
+    board.wPlayer.findValidMoves()
+    print(len(board.wPlayer.validMoves))
+    board.wPlayer.displayMoves()
+    move(board, 13, 12)
+    board.wPlayer.pieces[13].hasMoved = True
+
+    input('\nblack to move')
+    print('\nBLACK MOVES')
+    board.bPlayer.findAllPieces()
+    board.bPlayer.findAllDestinations()
+    board.bPlayer.findValidMoves()
+    print(len(board.bPlayer.validMoves))
+    board.bPlayer.displayMoves()
+    moveB(board, 7, 11)
+    board.bPlayer.pieces[7].hasMoved = True
+
+    input('\nwhite to move')
+    print('\nWHITE MOVES')
+    board.wPlayer.findAllPieces()
+    board.wPlayer.findAllDestinations()
+    board.wPlayer.findValidMoves()
+    print(len(board.wPlayer.validMoves))
+    board.wPlayer.displayMoves()
+    move(board, 9, 22)
+    board.wPlayer.pieces[9].hasMoved = True
+
+    input('\nblack to move')
+    print('\nBLACK MOVES')
+    board.bPlayer.findAllPieces()
+    board.bPlayer.findAllDestinations()
+    board.bPlayer.findValidMoves()
+    print(len(board.bPlayer.validMoves))
+    board.bPlayer.displayMoves()
+    moveB(board, 9, 13)
+    board.bPlayer.pieces[9].hasMoved = True
+    board.bPlayer.findAllPieces()
+    board.bPlayer.findAllDestinations()
+    board.bPlayer.findValidMoves()
+    print(len(board.bPlayer.validMoves))
+    board.bPlayer.displayMoves()
+
+def testCastle():
+    pass
+
+def testPawnPromote():
+    pass
 
 # test pawn #################################################################################
 def testPawnSwap(board, color, num):
@@ -174,4 +386,4 @@ def testKingCapture():
 print("##########################################################################################")
 #basicTests()
 #pawnTests()
-testPlayers()
+testKing()

@@ -10,9 +10,10 @@ class Move():
         self.type = tpe
         self.board = board
         # need special options for pawn promotion
+        # special options for castling
 
     # display
     def display(self):
-        print(self.piece.display(), self.dest.display(), self.type)
+        print(self.piece.display(), self.piece.position, '|', self.dest.display(), self.dest.position, '|', self.type)
 #
 # End Move Class ############################################

@@ -29,21 +29,21 @@ class Board(object):
         self.bPieces = []
         self.empty = []
         for i in range(8):
-            self.wPieces.append(Pawn('w',(i,1)))
-            self.bPieces.append(Pawn('b',(i,6)))
+            self.wPieces.append(Pawn('w',(i,1),10+i))
+            self.bPieces.append(Pawn('b',(i,6),10+i))
         for i in [0,7]:
-            self.wPieces.append(Rook('w',(i,0)))
-            self.bPieces.append(Rook('b',(i,7)))
+            self.wPieces.append(Rook('w',(i,0),20+i))
+            self.bPieces.append(Rook('b',(i,7),20+i))
         for i in [1,6]:
-            self.wPieces.append(Knight('w',(i,0)))
-            self.bPieces.append(Knight('b',(i,7)))
+            self.wPieces.append(Knight('w',(i,0),30+i))
+            self.bPieces.append(Knight('b',(i,7),30+i))
         for i in [2,5]:
-            self.wPieces.append(Bishop('w',(i,0)))
-            self.bPieces.append(Bishop('b',(i,7)))
-        self.wPieces.append(Queen('w',(3,0)))
-        self.bPieces.append(Queen('b',(3,7)))
-        self.wPieces.append(King('w',(4,0)))
-        self.bPieces.append(King('b',(4,7)))
+            self.wPieces.append(Bishop('w',(i,0),40+i))
+            self.bPieces.append(Bishop('b',(i,7),40+i))
+        self.wPieces.append(Queen('w',(3,0),50))
+        self.bPieces.append(Queen('b',(3,7),50))
+        self.wPieces.append(King('w',(4,0),60))
+        self.bPieces.append(King('b',(4,7),60))
         for i in range(8):
             self.empty.append(Empty((i,2)))
             self.empty.append(Empty((i,3)))
@@ -56,6 +56,7 @@ class Board(object):
         position = place.position
         place.position = dest.position
         dest.position = position
+        self.allPieces = self.wPieces + self.bPieces + self.empty
 
     # piece capture method
     def capture(self, place, dest):
@@ -69,6 +70,7 @@ class Board(object):
             print('color assignment error')
             quit()
         self.empty.append(Empty(position))
+        self.allPieces = self.wPieces + self.bPieces + self.empty
 
     def findPiece(self, position):
         for p in self.allPieces:
