@@ -3,6 +3,8 @@
 from abc import ABC
 import sys
 sys.path.append(".")
+from board import *
+from player import *
 from moves import *
 
 # Begin: Abstract Piece Class ##################################################################################
@@ -41,7 +43,7 @@ class Pawn(Piece):
         self.color = color
         self.position = position
         self.hasMoved = False
-        self.justMovedTwice = False
+        self.hasMoved2 = False
         self.generatePossibleDestinations()
 
     # generate possible move destinations
@@ -75,6 +77,7 @@ class Rook(Piece):
         self.color = color
         self.position = position
         self.hasMoved = False
+        self.hasMoved2 = False
         self.generatePossibleDestinations()
 
     # generate possible move destinations
@@ -122,6 +125,7 @@ class Knight(Piece):
         self.color = color
         self.position = position
         self.hasMoved = False
+        self.hasMoved2 = False
         self.generatePossibleDestinations()
 
     # generate possible move destinations
@@ -150,6 +154,7 @@ class Bishop(Piece):
         self.color = color
         self.position = position
         self.hasMoved = False
+        self.hasMoved2 = False
         self.generatePossibleDestinations()
 
     # generate possible move destinations
@@ -198,6 +203,7 @@ class Queen(Piece):
         self.color = color
         self.position = position
         self.hasMoved = False
+        self.hasMoved2 = False
         self.generatePossibleDestinations()
 
     # generate possible move destinations
@@ -274,6 +280,7 @@ class King(Piece):
         self.color = color
         self.position = position
         self.hasMoved = False
+        self.hasMoved2 = False
         # starting in left upper corner facing oponent (clockwise)
         self.isPinned = [False, False, False, False, False, False, False, False]
         self.generatePossibleDestinations()

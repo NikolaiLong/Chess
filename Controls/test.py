@@ -284,6 +284,26 @@ def testKing():
     print(len(board.bPlayer.validMoves))
     board.bPlayer.displayMoves()
 
+def testPawnCheck():
+    board = Board()
+    board.display()
+
+    input('\nwhite to move')
+    print('\nWHITE MOVES')
+    board.wPlayer.findAllPieces()
+    board.wPlayer.findAllDestinations()
+    board.wPlayer.findValidMoves()
+    print(len(board.wPlayer.validMoves))
+    board.wPlayer.displayMoves()
+    move(board, 15, 7)
+
+    print('\nWHITE MOVES')
+    board.wPlayer.findAllPieces()
+    board.wPlayer.findAllDestinations()
+    board.wPlayer.findValidMoves()
+    print(len(board.wPlayer.validMoves))
+    board.wPlayer.displayMoves()
+
 def testCastle():
     pass
 
@@ -386,4 +406,6 @@ def testKingCapture():
 print("##########################################################################################")
 #basicTests()
 #pawnTests()
-testKing()
+#testKing()
+#testPawnCheck()
+board = Board()

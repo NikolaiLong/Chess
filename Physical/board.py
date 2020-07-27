@@ -51,26 +51,22 @@ class Board(object):
             self.empty.append(Empty((i,5)))
         self.allPieces = self.wPieces + self.bPieces + self.empty
 
-    # piece movement method
-    def move(self, place, dest):
-        position = place.position
-        place.position = dest.position
-        dest.position = position
-        self.allPieces = self.wPieces + self.bPieces + self.empty
-
-    # piece capture method
-    def capture(self, place, dest):
-        position = place.position
-        place.position = dest.position
-        if dest.color == 'w':
-            self.wPieces.remove(dest)
-        elif dest.color == 'b':
-            self.bPieces.remove(dest)
-        else:
-            print('color assignment error')
-            quit()
-        self.empty.append(Empty(position))
-        self.allPieces = self.wPieces + self.bPieces + self.empty
+    # assign pieces to specific lists
+    def allocatePieces(self):
+        self.empty = []
+        self.wPieces = []
+        self.bPieces = []
+        for p in self.allPieces:
+            p.hasMoved2 = False
+            if(type(p) == Empty):
+                self.empty.append(p)
+            elif(p.color == 'w'):
+                self.wPieces.append(p)
+            elif(p.color == 'b'):
+                self.bPieces.append(p)
+            else:
+                print('color assignment erro')
+                quit()
 
     def findPiece(self, position):
         for p in self.allPieces:
@@ -80,6 +76,7 @@ class Board(object):
 
     # prints the board
     def display(self):
+        self.allocatePieces()
         for p in self.wPieces:
             self.grid[7-p.position[1], p.position[0]] = p
         for p in self.bPieces:

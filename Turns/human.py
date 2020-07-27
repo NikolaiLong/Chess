@@ -1,10 +1,11 @@
-# Chess Turns:
-#             for two and one player games only
-
-import numpy as np
+# Chess Human Turn
 
 import sys
-sys.path.append(".")
+sys.path.append("../Physical")
+from board import *
+from player import *
+from pieces import *
+from moves import *
 
 # two player turn
 def turn(board, color):
@@ -70,39 +71,3 @@ def logDisp(self):
     for t in self.log:
         print("|", t, "|")
     print("------------")
-
-# flip the coordinates to account for
-def flipCoordinates(self, y1, y2):
-    y1 = 4 - (y1 - 3)
-    y2 = 4 - (y2 - 3)
-    return y1, y2        
-
-def move(self, p1, p2, d1, d2, color):
-    place = self.board.grid[p2, p1]
-    dest = self.board.grid[d2, d1]
-    if self.badMove(place, dest, color):
-        print("3: invalid move; retry the turn or quit")
-        self.turn2(color)
-    elif type(dest) == Empty:
-        if place.swap(dest):
-            self.board.swap(p1, p2, d1, d2)
-        else:
-            print("4: invalid move; retry the turn or quit")
-            self.turn2(color)
-    elif (type(dest) != Empty):
-        if place.capture(dest):
-            self.board.capture(p1, p2, d1, d2)
-        else:
-            print("5: invalid move; retry the turn or quit")
-            self.turn2(color)
-    else:
-        print("6: invalid move; retry the turn or quit")
-        self.turn2(color)
-
-def badMove(self, place, dest, color):
-    if not isinstance(place, Piece) or not isinstance(dest, Piece) or type(place) == Empty:
-        return True
-    if place.color != color:
-        return True
-    #elif : king is in check situations
-    return False

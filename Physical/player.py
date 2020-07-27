@@ -44,10 +44,12 @@ class Player():
     # find all the valid moves from the destinations of the remaining pieces
     # Begin Find Valid Moves ###############################################
     def findValidMoves(self):
+        from pieces import Empty
         self.validMoves = []
         self.check = False
 
         # check pawns
+        from pieces import Pawn
         for p in self.pieces:
             if type(p) == Pawn:
                 d = self.board.findPiece(p.allDestinations[0])
@@ -55,7 +57,7 @@ class Player():
                     self.validMoves.append(Move(p,d,'m',self.board)) # move
                     d = self.board.findPiece(p.allDestinations[1])
                     if(type(d) == Empty and not p.hasMoved):
-                        self.validMoves.append(Move(p,d,'m',self.board)) # move
+                        self.validMoves.append(Move(p,d,'m2',self.board)) # move
                 d = self.board.findPiece(p.allDestinations[2])
                 if(d != None and type(d) != Empty and d.color != p.color):
                     self.validMoves.append(Move(p,d,'c',self.board)) # capture
@@ -64,20 +66,22 @@ class Player():
                     self.validMoves.append(Move(p,d,'c',self.board)) # capture
                 if self.color == 'w':
                     d = self.board.findPiece(tuple(map(sum, zip(p.allDestinations[2], (0,-1)))))
-                    if(d != None and type(d) == Pawn and d.justMovedTwice and d.color != p.color):
+                    if(d != None and type(d) == Pawn and d.hasMoved2 and d.color != p.color):
                         self.validMoves.append(Move(p,d,'ep',self.board)) # en passant capture
                     d = self.board.findPiece(tuple(map(sum, zip(p.allDestinations[3], (0,-1)))))
-                    if(d != None and type(d) == Pawn and d.justMovedTwice and d.color != p.color):
+                    if(d != None and type(d) == Pawn and d.hasMoved2 and d.color != p.color):
                         self.validMoves.append(Move(p,d,'ep',self.board)) # en passant capture
                 else:
                     d = self.board.findPiece(tuple(map(sum, zip(p.allDestinations[2], (0,1)))))
-                    if(d != None and type(d) == Pawn and d.justMovedTwice and d.color != p.color):
+                    if(d != None and type(d) == Pawn and d.hasMoved2 and d.color != p.color):
                         self.validMoves.append(Move(p,d,'ep',self.board)) # en passant capture
                     d = self.board.findPiece(tuple(map(sum, zip(p.allDestinations[3], (0,1)))))
-                    if(d != None and type(d) == Pawn and d.justMovedTwice and d.color != p.color):
+                    if(d != None and type(d) == Pawn and d.hasMoved2 and d.color != p.color):
                         self.validMoves.append(Move(p,d,'ep',self.board)) # en passant capture
 
         # check rooks and bishops
+        from pieces import Rook
+        from pieces import Bishop
         self.tupleList = [(0,7),(7,14),(14,21),(21,28)]
         for p in self.pieces:
             if type(p) == Rook or type(p) == Bishop:
@@ -93,6 +97,7 @@ class Player():
                             break
 
         # check knights
+        from pieces import Knight
         for p in self.pieces:
             if type(p) == Knight:
                 for num in range(8):
@@ -103,6 +108,7 @@ class Player():
                         self.validMoves.append(Move(p,d,'c',self.board)) # capture
 
         # check queen
+        from pieces import Queen
         self.tupleList = [(0,7),(7,14),(14,21),(21,28),(28,35),(35,42),(42,49),(49,56)]
         for p in self.pieces:
             if type(p) == Queen:
@@ -118,6 +124,7 @@ class Player():
                             break
 
         # check king
+        from pieces import King
         for p in self.pieces:
             if type(p) == King:
                 self.king = p
@@ -157,7 +164,7 @@ class Player():
             for vm in self.validMoves:
                 if(m.dest.position == vm.dest.position and m.piece.position == vm.piece.position):
                     m = vm
-            if(type(m.piece) == King and m.type == 'm'):
+            if(type(m.piece) == King and (m.type == 'm' or m.type == 'c')):
                 count = self.kingCheck(m.dest.position, 'm')
                 if(count > 0):
                     self.validMoves.remove(m)
@@ -189,9 +196,12 @@ class Player():
     # a position for all possibilities of being in check
     # Begin King Check #################################
     def kingCheck(self, position, tpe):
+        from pieces import Empty
+        from pieces import King
         count = 0
         
         # check by knight
+        from pieces import Knight
         testKnight = Knight(self.color, position, 0)
         for num in range(8):
             d = self.board.findPiece(testKnight.allDestinations[num])
@@ -204,7 +214,10 @@ class Player():
                             self.validMoves[index] = None
                             print('KNIGHT REMOVE')
 
-        # check by rook then bishop
+        # check by rook then bishop, i.e. queen
+        from pieces import Rook
+        from pieces import Bishop
+        from pieces import Queen
         self.tupleList = [(0,7),(7,14),(14,21),(21,28)]
         for ip in range(2):
             if(ip == 0):
@@ -254,16 +267,28 @@ class Player():
                             self.validMoves[index] = None
                             print(self.printName, 'PIN REMOVE')
         # check by pawn
+        from pieces import Pawn
         if(self.color == 'w'):
             d1 = self.board.findPiece(tuple(map(sum, zip(position,(-1,1)))))
             d2 = self.board.findPiece(tuple(map(sum, zip(position,(1,1)))))
         else:
             d1 = self.board.findPiece(tuple(map(sum, zip(position,(-1,-1)))))
             d2 = self.board.findPiece(tuple(map(sum, zip(position,(1,-1)))))
-        if(d1 != None and type(d1) == Pawn and self.color != d1.color):
-            pass
-        elif(d2 != None and type(d2) == Pawn and self.color != d2.color):
-            pass
+        for ind in range(2):
+            if(ind == 0):
+                self.d = d1
+                self.pawnID = 'LEFT'
+            else:
+                self.d = d2
+                self.pawnID = 'RIGHT'
+            if(self.d != None and type(self.d) == Pawn and self.color != self.d.color):
+                count = 1
+                print('PAWN CHECK', self.pawnID)
+                if(tpe == 's'):
+                    for index in range(len(self.validMoves)):
+                        if(self.validMoves[index] != None and type(self.validMoves[index].piece) != King and self.validMoves[index].dest.position != self.d.position):
+                            self.validMoves[index] = None
+                            print('PAWN REMOVE')
 
         # eliminate None elements
         length = len(self.validMoves)
