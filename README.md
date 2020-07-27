@@ -5,6 +5,11 @@
 !## igor's library ##!  
 !##############!
 
+#### Updates Soon to Come:
+* Executable file to play chess
+* log file the saves a game's moves - can be uploaded into the program to resume a position
+* NN advancement - computer is currently non existent
+
 #### Prerequisites:
 * Python 3 (3.8 or up prefered)
 * Python Libraries:
@@ -13,7 +18,7 @@
     - ... more in the future (might need to be updated)
 
 #### To Do:
-* Move to Controls Directory:
+* Navigate to the Controls directory:
     * Play one or two player chess? $<play.py>
     * Test piece movement for accuracy? $<test.py>
     * Run the neural network to teach the computer how to play? $<nn.py>
