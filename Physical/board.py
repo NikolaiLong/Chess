@@ -13,7 +13,6 @@ from player import *
 class Board(object):
     # initialize
     def __init__(self):
-        print("pulled a board off the shelf,")
         self.grid = np.zeros((8,8), Piece)
         self.newPieces()
         self.wPlayer = Player('w', self)
@@ -24,7 +23,6 @@ class Board(object):
 
     # create new pieces in their starting positions
     def newPieces(self):
-        print("and dusted off pieces; enjoy.. \n")
         self.wPieces = []
         self.bPieces = []
         self.empty = []

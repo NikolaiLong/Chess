@@ -28,9 +28,25 @@ class Empty(Piece):
     def display(self):
         return '  '
     
-    # special display of: position
-    def dispCPP(self):
-        return #position
+    def positionNice(self):
+        pos = ''
+        if(self.position[0] == 0):
+            pos = 'A'
+        elif(self.position[0] == 1):
+            pos = 'B'
+        elif(self.position[0] == 2):
+            pos = 'C'
+        elif(self.position[0] == 3):
+            pos = 'D'
+        elif(self.position[0] == 4):
+            pos = 'E'
+        elif(self.position[0] == 5):
+            pos = 'F'
+        elif(self.position[0] == 6):
+            pos = 'G'
+        elif(self.position[0] == 7):
+            pos = 'H'
+        return pos+str(self.position[1]+1)
 #
 # End: Empty Place Class #####################################################################################
 
@@ -65,6 +81,26 @@ class Pawn(Piece):
     # display self
     def display(self):
         return self.color+'P'
+
+    def positionNice(self):
+        pos = ''
+        if(self.position[0] == 0):
+            pos = 'A'
+        elif(self.position[0] == 1):
+            pos = 'B'
+        elif(self.position[0] == 2):
+            pos = 'C'
+        elif(self.position[0] == 3):
+            pos = 'D'
+        elif(self.position[0] == 4):
+            pos = 'E'
+        elif(self.position[0] == 5):
+            pos = 'F'
+        elif(self.position[0] == 6):
+            pos = 'G'
+        elif(self.position[0] == 7):
+            pos = 'H'
+        return pos+str(self.position[1]+1)
 #
 # End: Pawn Class ###########################################################################################
 
@@ -77,7 +113,6 @@ class Rook(Piece):
         self.color = color
         self.position = position
         self.hasMoved = False
-        self.hasMoved2 = False
         self.generatePossibleDestinations()
 
     # generate possible move destinations
@@ -114,6 +149,26 @@ class Rook(Piece):
     # display self
     def display(self):
         return self.color+'R'
+
+    def positionNice(self):
+        pos = ''
+        if(self.position[0] == 0):
+            pos = 'A'
+        elif(self.position[0] == 1):
+            pos = 'B'
+        elif(self.position[0] == 2):
+            pos = 'C'
+        elif(self.position[0] == 3):
+            pos = 'D'
+        elif(self.position[0] == 4):
+            pos = 'E'
+        elif(self.position[0] == 5):
+            pos = 'F'
+        elif(self.position[0] == 6):
+            pos = 'G'
+        elif(self.position[0] == 7):
+            pos = 'H'
+        return pos+str(self.position[1]+1)
 #
 # End: Rook Class ##########################################################################################
 
@@ -125,7 +180,6 @@ class Knight(Piece):
         self.color = color
         self.position = position
         self.hasMoved = False
-        self.hasMoved2 = False
         self.generatePossibleDestinations()
 
     # generate possible move destinations
@@ -142,6 +196,26 @@ class Knight(Piece):
     # display self
     def display(self):
         return self.color+'N'
+
+    def positionNice(self):
+        pos = ''
+        if(self.position[0] == 0):
+            pos = 'A'
+        elif(self.position[0] == 1):
+            pos = 'B'
+        elif(self.position[0] == 2):
+            pos = 'C'
+        elif(self.position[0] == 3):
+            pos = 'D'
+        elif(self.position[0] == 4):
+            pos = 'E'
+        elif(self.position[0] == 5):
+            pos = 'F'
+        elif(self.position[0] == 6):
+            pos = 'G'
+        elif(self.position[0] == 7):
+            pos = 'H'
+        return pos+str(self.position[1]+1)
 #
 # End: Knight Class ########################################################################################
 
@@ -154,7 +228,6 @@ class Bishop(Piece):
         self.color = color
         self.position = position
         self.hasMoved = False
-        self.hasMoved2 = False
         self.generatePossibleDestinations()
 
     # generate possible move destinations
@@ -191,6 +264,26 @@ class Bishop(Piece):
     # display self
     def display(self):
         return self.color+'B'
+    
+    def positionNice(self):
+        pos = ''
+        if(self.position[0] == 0):
+            pos = 'A'
+        elif(self.position[0] == 1):
+            pos = 'B'
+        elif(self.position[0] == 2):
+            pos = 'C'
+        elif(self.position[0] == 3):
+            pos = 'D'
+        elif(self.position[0] == 4):
+            pos = 'E'
+        elif(self.position[0] == 5):
+            pos = 'F'
+        elif(self.position[0] == 6):
+            pos = 'G'
+        elif(self.position[0] == 7):
+            pos = 'H'
+        return pos+str(self.position[1]+1)
 #
 # End: Bishop Class #########################################################################################
 
@@ -203,7 +296,6 @@ class Queen(Piece):
         self.color = color
         self.position = position
         self.hasMoved = False
-        self.hasMoved2 = False
         self.generatePossibleDestinations()
 
     # generate possible move destinations
@@ -268,6 +360,26 @@ class Queen(Piece):
     # diplay self
     def display(self):
         return self.color+'Q'
+
+    def positionNice(self):
+        pos = ''
+        if(self.position[0] == 0):
+            pos = 'A'
+        elif(self.position[0] == 1):
+            pos = 'B'
+        elif(self.position[0] == 2):
+            pos = 'C'
+        elif(self.position[0] == 3):
+            pos = 'D'
+        elif(self.position[0] == 4):
+            pos = 'E'
+        elif(self.position[0] == 5):
+            pos = 'F'
+        elif(self.position[0] == 6):
+            pos = 'G'
+        elif(self.position[0] == 7):
+            pos = 'H'
+        return pos+str(self.position[1]+1)
 #
 # End: Queen Class ##########################################################################################
 
@@ -280,7 +392,6 @@ class King(Piece):
         self.color = color
         self.position = position
         self.hasMoved = False
-        self.hasMoved2 = False
         # starting in left upper corner facing oponent (clockwise)
         self.isPinned = [False, False, False, False, False, False, False, False]
         self.generatePossibleDestinations()
@@ -301,5 +412,25 @@ class King(Piece):
     # display self
     def display(self):
         return self.color+'K'
+
+    def positionNice(self):
+        pos = ''
+        if(self.position[0] == 0):
+            pos = 'A'
+        elif(self.position[0] == 1):
+            pos = 'B'
+        elif(self.position[0] == 2):
+            pos = 'C'
+        elif(self.position[0] == 3):
+            pos = 'D'
+        elif(self.position[0] == 4):
+            pos = 'E'
+        elif(self.position[0] == 5):
+            pos = 'F'
+        elif(self.position[0] == 6):
+            pos = 'G'
+        elif(self.position[0] == 7):
+            pos = 'H'
+        return pos+str(self.position[1]+1)
 #
 # End: King Class ###########################################################################################

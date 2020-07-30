@@ -186,10 +186,13 @@ class Player():
         
         # check for checkmate
         if(len(self.validMoves) == 0):
+            self.board.log[self.board.turnNum-1] += "#"
             self.checkMate = True
+            print('Checkmate!')
 
         # check for check
         if(self.check):
+            self.board.log[self.board.turnNum-2] += "!"
             print('Check!')
     # End Find Valid Moves #################################################
 
@@ -303,12 +306,68 @@ class Player():
         return count
     # End King Check ###################################
 
+    def executeMove2(self, dest, tpe):
+        from pieces import Pawn
+        for m in self.validMoves:
+            if(tpe == 'cs' and m.type == tpe):
+                m.execute()
+                return True
+            elif(type(m.piece) == Pawn and m.dest.position == dest):
+                m.execute()
+                return True
+        return False
+
+    def executeMove3(self, piece, dest, tpe):
+        from pieces import Rook, Knight, Bishop, Queen, King
+        move = None
+        count = 0
+        for m in self.validMoves:
+            if(tpe == 'cl' and m.type == tpe):
+                m.execute()
+                return True
+            elif(type(piece) == type(m.piece) and m.dest.position == dest):
+                move = m
+                count += 1
+        if(count == 1):
+            move.execute()
+            return True
+        elif(count > 1):
+            print('more than one piece of the specified type can move to the specified destination')
+            print("add the desired piece's position before it's destination")
+        return False
+
+    def executeMove4(self, column, dest):
+        from pieces import Pawn
+        for m in self.validMoves:
+            if(type(m.piece) == Pawn and m.dest.position == dest and m.piece.position[0] == column):
+                m.execute()
+                return True
+        return False
+
+    def executeMove5(self, piece, place, dest):
+        for m in self.validMoves:
+            if(type(m.piece) == type(piece) and m.piece.position == place and m.dest.position == dest):
+                m.execute()
+                return True
+        return False
+
+    def executeMove6(self, piece, place, dest):
+        for m in self.validMoves:
+            if(type(m.piece) == type(piece) and m.piece.position == place and m.dest.position == dest):
+                m.execute()
+                return True
+        return False
+
     # Display all available moves a player can make
     # Begin Display Moves #########################
     def displayMoves(self):
         for m in self.validMoves:
             m.display()
     # End Display Moves ###########################
+
+    def displayMovesNice(self):
+        for m in self.validMoves:
+            m.displayNice()
 ##########################################################################################################################################################
 # End Player Class #######################################################################################################################################
 ##########################################################################################################################################################

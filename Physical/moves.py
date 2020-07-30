@@ -31,21 +31,28 @@ class Move():
     def execute(self):
         if(self.type == 'm'):
             self.move()
+            return
         if(self.type == 'm2'):
             self.move2()
-        elif(self.type == 'c'):
+            return
+        if(self.type == 'c'):
             self.capture()
-        elif(self.type == 'ep'):
+            return
+        if(self.type == 'ep'):
             self.enPassant()
-        elif(self.type == 'cl'):
+            return
+        if(self.type == 'cl'):
             self.castleLong()
-        elif(self.type == 'cs'):
+            return
+        if(self.type == 'cs'):
             self.castleShort()
-        elif(self.type == 'p'):
+            return
+        if(self.type == 'p'):
             self.promote()
-        else:
-            print('move type assignment error')
-            quit()
+            return
+        print(self.type)
+        print('move type assignment error')
+        quit()
 
     def move(self):
         position = self.piece.position
@@ -59,6 +66,7 @@ class Move():
         self.piece.hasMoved2 = True
 
     def capture(self):
+        from pieces import Empty
         position = self.piece.position
         self.piece.position = self.dest.position
         self.board.allPieces.remove(self.dest)
@@ -67,6 +75,7 @@ class Move():
         self.board.allocatePieces()
 
     def enPassant(self):
+        from pieces import Empty
         position = self.dest.position
         if(self.piece.color == 'w'):
             dpos = tuple(map(sum, zip(position,(0,1))))
@@ -78,30 +87,23 @@ class Move():
         self.move()
 
     def castleLong(self):
-        dest = self.dest
-        kPos = self.piece.position
-
-        self.dest = self.board.findPiece(tuple(map(sum, zip(kPos,(-2,0)))))
-        move()
-
-        self.dest = self.board.findPiece(tuple(map(sum, zip(kPos,(-1,0)))))
-        self.piece = dest
+        self.move()
+        kpos = self.piece.position
+        self.piece = self.board.findPiece(tuple(map(sum, zip(kpos,(-2,0)))))
+        self.dest = self.board.findPiece(tuple(map(sum, zip(kpos,(1,0)))))
         self.move()
 
     def castleShort(self):
-        dest = self.dest
-        kPos = self.piece.position
-
-        self.dest = self.board.findPiece(tuple(map(sum, zip(kPos,(2,0)))))
-        move()
-        
-        self.dest = self.board.findPiece(tuple(map(sum, zip(kPos,(1,0)))))
-        self.piece = dest
+        self.move()
+        kpos = self.piece.position
+        self.piece = self.board.findPiece(tuple(map(sum, zip(kpos,(1,0)))))
+        self.dest = self.board.findPiece(tuple(map(sum, zip(kpos,(-1,0)))))
         self.move()
 
     def promote(self):
+        from pieces import Queen, Bishop, Knight, Rook, Empty
         while(True):
-            newPiece = input('what piece would you like to promote your pawn to? [q = Queen, b = Bishop, n = Knight, r = rook]')
+            newPiece = input('what piece would you like to promote your pawn to? [q = Queen, b = Bishop, n = Knight, r = rook] ')
             if(newPiece == 'q'):
                 self.promotePiece = Queen(self.piece.color, self.dest.position, 1000+self.promoteID)
                 break
@@ -122,12 +124,14 @@ class Move():
         self.board.allPieces.append(self.promotePiece)
         self.board.allPieces.append(Empty(position))
         self.board.allocatePieces()
-        self.promoteID += 1
 
     # display a move
     # Begin Display ##
     def display(self):
         print(self.piece.display(), self.piece.position, '|', self.dest.display(), self.dest.position, '|', self.type)
     # End Display ####
+
+    def displayNice(self):
+        print(self.piece.display(), self.piece.positionNice(), '|', self.dest.display(), self.dest.positionNice(), '|', self.type)
 #
 # End Move Class ############################################

@@ -9,65 +9,233 @@ from moves import *
 
 # two player turn
 def turn(board, color):
+    colorStr = ''
+    player = None
     if color == 'w':
-        print("\nturn %d: white to move" %board.turnNum)
+        player = board.wPlayer
     else:
-        print("\nturn %d: black to move" %board.turnNum)
+        player = board.bPlayer
+    player.findAllPieces()
+    player.findAllDestinations()
+    player.findValidMoves()
+    if player.checkMate:
+        board.gameOver = True
+        return
+    elif color == 'w':
+        board.log.append(str(board.turnNum)+". ")
+        colorStr = 'white'
+    else:
+        board.log[board.turnNum-1] += " "
+        colorStr = 'black'
     while True:
-        try:
-            
-            pdstr = input("<char><int>;<char><int>: ")
-            if pdstr == 'q':
+        inStr = input("\nturn %d, %s to move: " %(board.turnNum, colorStr))
+        if(inStr == 'q'):
+            quit()
+        elif(inStr == 'h'):
+            helpDialogue()
+            continue
+        elif(inStr == 'l'):
+            logDisp(board)
+            continue
+        elif(inStr == 'm'):
+            print("\nnumber of moves available:", len(player.validMoves), "\navailable moves:\npiece  dest.    move type")
+            player.displayMovesNice()
+            print()
+            continue
+        elif(len(inStr) == 2):
+            cont = findMove2(inStr, player)
+            if cont:
                 break
-            elif pdstr == 'help':
-                helpDialogue()
-            elif pdstr == 'log':
-                logDisp()
-            else:
-                place, dest = pdstr.split(";")
-                char1 = ord(place[0])
-                num1 = ord(place[1])
-                char2 = ord(dest[0])
-                num2 = ord(dest[1])
-                if (len(pdstr) != 5 or char1 < 97 or char1 > 104 or num1 < 49 or num1 > 56 or 
-                        char2 < 97 or char2 > 104 or num2 < 49 or num2 > 56):
-                    print("2: invalid syntax; retry input or quit")
-                else:
-                    break
-        except:
-            print("1: invalid syntax; retry input or quit")
-    if pdstr == 'q':
-        quit()
-    if color == "w":
-        board.log.append(str(board.turnNum) + '. ' + str(place) + " " + str(dest))
-    else:
-        board.log.append("   " + str(place) + " " + str(dest))
-    print(board.turnNum, '.', place, dest)
-    p1 = char1 - 97
-    p2 = num1 - 49
-    d1 = char2 - 97
-    d2 = num2 - 49
-    p2, d2 = flipCoordinates(p2, d2)
-    #move(p1, p2, d1, d2, color)
+        elif(len(inStr) == 3):
+            cont = findMove3(inStr, player)
+            if cont:
+                break
+        elif(len(inStr) == 4):
+            cont = findMove4(inStr, player)
+            if cont:
+                break
+        elif(len(inStr) == 5):
+            cont = findMove5(inStr, player)
+            if cont:
+                break
+        elif(len(inStr) == 6):
+            cont = findMove6(inStr, player)
+            if cont:
+                break
+        print("incorrect input, type h to display the help dialogue, try again...")
+
+# short castle and pawn push
+def findMove2(inStr, player):
+    board = player.board
+    if(inStr == "oo"):
+        ret = player.executeMove2((0,0),"cs")
+        if(ret):
+            board.log[board.turnNum-1] += "o-o"
+            return True
+        print("move not available, type m to display all available moves")
+        return False
+    x = convertL(inStr[0])
+    y = convertN(inStr[1])
+    if x == -1 or y == -1:
+        return False
+    ret = player.executeMove2((x,y),"m")
+    if(ret):
+        board.log[board.turnNum-1] += inStr
+        return True
+    print("move not available, type m to display all available moves")
+    return False
+
+# long castle and moving a piece
+def findMove3(inStr, player):
+    board = player.board
+    if (inStr == "ooo"):
+        ret = player.executeMove3(0,0,"cl")
+        if(ret):
+            board.log[board.turnNum-1] += "o-o-o"
+            return True
+        print("move not available, type m to display all available moves")
+        return False
+    p = convertP(inStr[0])
+    x = convertL(inStr[1])
+    y = convertN(inStr[2])
+    if x == -1 or y == -1 or p == -1:
+        return False
+    ret = player.executeMove3(p,(x,y),"m")
+    if(ret):
+        board.log[board.turnNum-1] += inStr
+        return True
+    print("move not available, type m to display all available moves")
+    return False
+
+# capture with a pawn
+def findMove4(inStr, player):
+    board = player.board
+    c = convertL(inStr[0])
+    x = convertL(inStr[2])
+    y = convertN(inStr[3])
+    if(inStr[1] != 'x' or c == -1 or x == -1 or y == -1):
+        return False
+    ret = player.executeMove4(c,(x,y))
+    if(ret):
+        board.log[board.turnNum-1] += inStr
+        return True
+    print("move not available, type m to display all available moves")
+    return False
+
+# move a piece complex
+def findMove5(inStr, player):
+    board = player.board
+    p = convertP(inStr[0])
+    x1 = convertL(inStr[1])
+    y1 = convertN(inStr[2])
+    x2 = convertL(inStr[3])
+    y2 = convertN(inStr[4])
+    if(p == -1 or x1 == -1 or y1 == -1 or x2 == -1 or y2 == -1):
+        return False
+    ret = player.executeMove5(p,(x1,y1),(x2,y2))
+    if(ret):
+        board.log[board.turnNum-1] += inStr
+        return True
+    print("move not available, type m to display all available moves")
+    return False
+
+# capture with a piece
+def findMove6(inStr, player):
+    board = player.board
+    p = convertP(inStr[0])
+    x1 = convertL(inStr[1])
+    y1 = convertN(inStr[2])
+    x2 = convertL(inStr[4])
+    y2 = convertN(inStr[5])
+    if(inStr[3] != 'x' or p == -1 or x1 == -1 or y1 == -1 or x2 == -1 or y2 == -1):
+        return False
+    ret = player.executeMove5(p,(x1,y1),(x2,y2))
+    if(ret):
+        board.log[board.turnNum-1] += inStr
+        return True
+    print("move not available, type m to display all available moves")
+    return False
+
+def convertL(chr):
+    if(chr == "a"):
+        return 0
+    elif(chr == "b"):
+        return 1
+    elif(chr == "c"):
+        return 2
+    elif(chr == "d"):
+        return 3
+    elif(chr == "e"):
+        return 4
+    elif(chr == "f"):
+        return 5
+    elif(chr == "g"):
+        return 6
+    elif(chr == "h"):
+        return 7
+    return -1
+
+def convertN(chr):
+    if(chr == "1"):
+        return 0
+    elif(chr == "2"):
+        return 1
+    elif(chr == "3"):
+        return 2
+    elif(chr == "4"):
+        return 3
+    elif(chr == "5"):
+        return 4
+    elif(chr == "6"):
+        return 5
+    elif(chr == "7"):
+        return 6
+    elif(chr == "8"):
+        return 7
+    return -1
+
+def convertP(chr):
+    from pieces import Rook, Knight, Bishop, Queen, King
+    if(chr == 'r'):
+        return Rook(' ',(-1,-1), 1000)
+    elif(chr == 'n'):
+        return Knight(' ',(-1,-1), 1000)
+    elif(chr == 'b'):
+        return Bishop(' ',(-1,-1), 1000)
+    elif(chr == 'q'):
+        return Queen(' ',(-1,-1), 1000)
+    elif(chr == 'k'):
+        return King(' ',(-1,-1), 1000)
+    return -1
 
 # display help dialogue
 def helpDialogue():
-    print("\nhelp dialogue:---------------------------------------------------------------------------")
-    print("| type the square of the piece you want to move <;> then the square of its destination  |")
-    print("| example turn input: c2;c4 (the English Opening)                                       |")
-    #print("| type cs for short castle, cl for long castle") need to implement castling
-    print("| disclaimer: inputs must be lower case                                                 |")
-    print("|                                                                                       |")
-    print("| at any time:                                                                          |")
-    print("| type 'q' to quit                                                                      |")
-    print("| type 'help' to display this dialogue again                                            |")
-    print("| type 'log' to display the game log of all the moves made                              |")
-    #print("| type 'print' to write the log to a csv file which you can load to resume the game     |")
-    print("-----------------------------------------------------------------------------------------")
+    print("\nhelp dialogue:-------------------------------------------------------")
+    print("| types of input:                                                   |")
+    print("|    pawn (examples):                                               |")
+    print("|       'c4' (to push a pawn)                                       |")
+    print("|       'cxe5' (to capture with a pawn)                             |")
+    print("|    any other piece (examples):                                    |")
+    print("|       'nc3' (to move a knight)                                    |")
+    print("|       'nb1c3' (to move a knight)                                  |")
+    print("|       'nb1xc3' (to capture with a knight)                         |")
+    print("|    to castle:                                                     |")
+    print("|       'oo' (castle short)                                         |")
+    print("|       'ooo' (castle long)                                         |")
+    print("|                                                                   |")
+    print("| disclaimer: inputs must be lower case                             |")
+    print("|             game log will automatically be printed into log.txt   |") 
+    print("|                                                                   |")
+    print("| at any time:                                                      |")
+    print("| type 'q' to quit                                                  |")
+    print("| type 'h' to display this dialogue again                           |")
+    print("| type 'l' to display the game log of all the moves made            |")
+    print("| type 'm' to display all moves available to you                    |")
+    print("---------------------------------------------------------------------\n")
 
 # display move log
-def logDisp(self):
+def logDisp(board):
     print("\nlog:--------")
-    for t in self.log:
-        print("|", t, "|")
+    for t in board.log:
+        print(t)
     print("------------")

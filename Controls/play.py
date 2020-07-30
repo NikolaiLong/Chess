@@ -14,13 +14,18 @@ from moves import *
 def play2():
     print("\noh, so you want to play against a friend, let's see who's on their game")
     print("\ni started a game for you,")
+    print("pulled a board off the bookshelf,")
+    print("and dusted off some pieces; enjoy..")
     board = Board()
-    board.display()
     helpDialogue()
-    board.gameOver = True
+    board.display()
     while not board.gameOver:
         turn(board, "w")
+        if board.gameOver:
+            break
+        board.display()
         turn(board, "b")
+        board.display()
         board.turnNum += 1
     print("\ngreat game! the game log has been stored in log.txt, change it's name if you don't want it to be overwritten!")
     print("hope you play again soon! bye..")
