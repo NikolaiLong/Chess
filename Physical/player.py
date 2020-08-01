@@ -30,8 +30,7 @@ class Player():
         elif(self.color == 'b'):
             self.pieces = self.board.bPieces
         else:
-            print("color error")
-            quit()
+            print("!!!!!!!!!!!!!!color error!!!!!!!!!!!!!!!!!!!")
     # End Find All Pieces ####################
 
     # find all the desinations of the remaining pieces
@@ -168,32 +167,46 @@ class Player():
                 count = self.kingCheck(m.dest.position, 'm')
                 if(count > 0):
                     self.validMoves.remove(m)
-                    print('KING REMOVE')
+                    outFile = open("out.txt", "a")
+                    outFile.write('KING REMOVE\n')
+                    outFile.close()
             elif(type(m.piece) == King and m.type == 'cl'):
                 count = self.kingCheck(m.piece.position, 'm')
                 count = count + self.kingCheck(tuple(map(sum, zip(m.piece.position, (-1,0)))), 'm')
                 count = count + self.kingCheck(tuple(map(sum, zip(m.piece.position, (-2,0)))), 'm')
                 if(count > 0):
                     self.validMoves.remove(m)
-                    print('KING REMOVE')
+                    outFile = open("out.txt", "a")
+                    outFile.write('KING REMOVE\n')
+                    outFile.close()
             elif(type(m.piece) == King and m.type == 'cs'):
                 count = self.kingCheck(m.piece.position, 'm')
                 count = count + self.kingCheck(tuple(map(sum, zip(m.piece.position, (1,0)))), 'm')
                 count = count + self.kingCheck(tuple(map(sum, zip(m.piece.position, (2,0)))), 'm')
                 if(count > 0):
                     self.validMoves.remove(m)
-                    print('KING REMOVE')
+                    outFile = open("out.txt", "a")
+                    outFile.write('KING REMOVE\n')
+                    outFile.close()
         
         # check for checkmate
         if(len(self.validMoves) == 0):
-            self.board.log[self.board.turnNum-1] += "#"
+            if(self.color == 'b'):
+                self.cmNum = 1
+            else:
+                self.cmNum = 2
+            self.board.log[self.board.turnNum-self.cmNum] += "#"
             self.checkMate = True
-            print('Checkmate!')
+            print('\nCheckmate!')
 
         # check for check
-        if(self.check):
-            self.board.log[self.board.turnNum-2] += "!"
-            print('Check!')
+        if(self.check and not self.checkMate):
+            if(self.color == 'b'):
+                self.cNum = 1
+            else:
+                self.cNum = 2
+            self.board.log[self.board.turnNum-self.cNum] += "!"
+            print('\nCheck!')
     # End Find Valid Moves #################################################
 
     # a position for all possibilities of being in check
@@ -210,12 +223,17 @@ class Player():
             d = self.board.findPiece(testKnight.allDestinations[num])
             if(d != None and type(d) == Knight and self.color != d.color):
                 count = 1
-                print('KNIGHT CHECK')
+                outFile = open("out.txt", "a")
+                outFile.write('\n\nKNIGHT CHECK\n')
+                outFile.close()
                 if(tpe == 's'):
                     for index in range(len(self.validMoves)):
                         if(self.validMoves[index] != None and type(self.validMoves[index].piece) != King and self.validMoves[index].dest != d):
                             self.validMoves[index] = None
-                            print('KNIGHT REMOVE')
+                            outFile = open("out.txt", "a")
+                            outFile.write('KNIGHT REMOVE\n')
+                            outFile.close()
+                            
 
         # check by rook then bishop, i.e. queen
         from pieces import Rook
@@ -248,27 +266,43 @@ class Player():
                             self.pin = True
                         elif(self.infront == 0):
                             count = 1
-                            print(self.printName, 'CHECK', self.printIDs[ind])
+                            outFile = open("out.txt", "a")
+                            outFile.write(self.printName + ' CHECK ' + self.printIDs[ind] + '\n')
+                            outFile.close()
                             if(tpe == 's'):
                                 for index in range(len(self.validMoves)):
                                     self.cRB = 0
                                     if(self.validMoves[index] != None and type(self.validMoves[index].piece) == King and self.validMoves[index].dest.position == self.checkDestinations[0]):
                                         self.validMoves[index] = None
-                                        print(self.printName, 'REMOVE')
+                                        outFile = open("out.txt", "a")
+                                        outFile.write(self.printName + ' REMOVE' + '\n')
+                                        outFile.close()
                                     if(self.validMoves[index] != None and type(self.validMoves[index].piece) != King):
                                         for pind in range(len(self.checkDestinations)):
                                             if(self.validMoves[index] != None and self.validMoves[index].dest.position == self.checkDestinations[pind]):
                                                 self.cRB = 1
                                         if(self.cRB == 0):
                                             self.validMoves[index] = None
-                                            print(self.printName, 'REMOVE')
+                                            outFile = open("out.txt", "a")
+                                            outFile.write(self.printName + ' REMOVE' + '\n')
+                                            outFile.close()
                         break
                 if(tpe == 's' and self.pin):
-                    print(self.printName, 'PIN DETECTED', self.printIDs[ind])
+                    outFile = open("out.txt", "a")
+                    outFile.write(self.printName + ' PIN DETECTED ' + self.printIDs[ind] + '\n')
+                    outFile.close()
                     for index in range(len(self.validMoves)):
+                        self.canMovePin = False
                         if(self.validMoves[index] != None and self.validMoves[index].piece == self.pinnedPiece):
-                            self.validMoves[index] = None
-                            print(self.printName, 'PIN REMOVE')
+                            for pind in range(len(self.checkDestinations)):
+                                if(self.validMoves[index].dest.position == self.checkDestinations[pind]):
+                                    self.canMovePin = True
+                            if(not self.canMovePin):
+                                self.validMoves[index] = None
+                                outFile = open("out.txt", "a")
+                                outFile.write(self.printName + ' PIN REMOVE' + '\n')
+                                outFile.close()
+                                
         # check by pawn
         from pieces import Pawn
         if(self.color == 'w'):
@@ -286,12 +320,16 @@ class Player():
                 self.pawnID = 'RIGHT'
             if(self.d != None and type(self.d) == Pawn and self.color != self.d.color):
                 count = 1
-                print('PAWN CHECK', self.pawnID)
+                outFile = open("out.txt", "a")
+                outFile.write('PAWN CHECK ' + self.pawnID + '\n')
+                outFile.close()
                 if(tpe == 's'):
                     for index in range(len(self.validMoves)):
                         if(self.validMoves[index] != None and type(self.validMoves[index].piece) != King and self.validMoves[index].dest.position != self.d.position):
                             self.validMoves[index] = None
-                            print('PAWN REMOVE')
+                            outFile = open("out.txt", "a")
+                            outFile.write('PAWN REMOVE\n')
+                            outFile.close()
 
         # eliminate None elements
         length = len(self.validMoves)

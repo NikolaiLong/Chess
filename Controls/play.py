@@ -10,24 +10,52 @@ from player import *
 from pieces import *
 from moves import *
 
+# load a game ################################################################################
+def loadGame():
+    step = input("\nlet pick up where we left off; would you like to step through each move? (Yes='enter', No=n")
+    pass
+
 # two player game ############################################################################
 def play2():
     print("\noh, so you want to play against a friend, let's see who's on their game")
+    load = ""
+    load = input("\nwould you like to load a game? If yes, copy the log file into the Controls directory and type it's name here. If not hit 'enter'. ")
+    if load != "":
+        loadGame()
+        return
     print("\ni started a game for you,")
     print("pulled a board off the bookshelf,")
     print("and dusted off some pieces; enjoy..")
     board = Board()
     helpDialogue()
     board.display()
+    outFile = open("out.txt", "w")
+    outFile.close()
+    logFile = open("log.txt", "w")
+    logFile.write("log:--------\n")
+    logFile.close()
+    printLast = False
     while not board.gameOver:
         turn(board, "w")
+        if board.turnNum > 1:
+            logFile = open("log.txt", "a")
+            logFile.write(board.log[board.turnNum-2]+"\n")
+            logFile.close()
         if board.gameOver:
             break
         board.display()
+        printLast = True
         turn(board, "b")
-        board.display()
+        if not board.gameOver:
+            printLast = False
+            board.display()
         board.turnNum += 1
-    print("\ngreat game! the game log has been stored in log.txt, change it's name if you don't want it to be overwritten!")
+    logFile = open("log.txt", "a")
+    if printLast:
+        logFile.write(board.log[board.turnNum-2]+"\n")
+    logFile.write("------------")
+    logFile.close()
+    print("\ngreat game! the game log has been stored in log.txt; change it's name if you don't want it to be overwritten!")
     print("hope you play again soon! bye..")
     print(start)
 

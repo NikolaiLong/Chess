@@ -63,8 +63,7 @@ class Board(object):
             elif(p.color == 'b'):
                 self.bPieces.append(p)
             else:
-                print('color assignment erro')
-                quit()
+                print("!!!!!!!!!!!!!!color error!!!!!!!!!!!!!!!!!!!")
 
     def findPiece(self, position):
         for p in self.allPieces:

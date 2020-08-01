@@ -75,8 +75,7 @@ class Pawn(Piece):
                                     tuple(map(sum, zip(self.position,(-1,1)))),
                                     tuple(map(sum, zip(self.position,(1,1))))]
         else:
-            print('color assignment error')
-            quit()
+            print("!!!!!!!!!!!!!!color error!!!!!!!!!!!!!!!!!!!")
 
     # display self
     def display(self):

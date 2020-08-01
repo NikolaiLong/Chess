@@ -51,8 +51,7 @@ class Move():
             self.promote()
             return
         print(self.type)
-        print('move type assignment error')
-        quit()
+        print("!!!!!!!!!!!!!!move type assignment error!!!!!!!!!!!!!!!!!!!")
 
     def move(self):
         position = self.piece.position

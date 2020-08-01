@@ -6,8 +6,8 @@
 !##############!
 
 #### Updates Soon to Come:
+* log file upload to resume a position
 * Executable file to play chess
-* log file the saves a game's moves - can be uploaded into the program to resume a position
 * NN advancement - computer is currently non existent
 
 #### Prerequisites:
