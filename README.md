@@ -5,9 +5,10 @@
 !## igor's library ##!  
 !##############!
 
-#### Updates Soon to Come:
+#### Updates Coming Soon:
 * log file upload to resume a position
 * Executable file to play chess
+* Medium and large chess board sizes (default is currently XL)
 * NN advancement - computer is currently non existent
 
 #### Prerequisites:
@@ -20,7 +21,6 @@
 #### To Do:
 * Navigate to the Controls directory:
     * Play one or two player chess? $<play.py>
-    * Test piece movement for accuracy? $<test.py>
     * Run the neural network to teach the computer how to play? $<nn.py>
 
 #### Repository:
@@ -28,7 +28,7 @@ Item | Description
 -----|------------
 Controls | Directory for the source code to run any chess functionality
 Physical | Directory for the source code abstractions of physical chess elements
-Storage | Directory to store all neural network data
+Storage | Directory to store an assortment of files
 Turns | Directory for the source code abstractions for a turn in a chess game
 info.txt | File with a brief overview of the connectivity of the abstractions
 
