@@ -42,6 +42,12 @@ def turn(board, color):
             player.displayMovesNice()
             print()
             continue
+        elif(inStr == 'b'):
+            boardSelect(board)
+            continue
+        elif(inStr == 'd'):
+            board.display()
+            continue
         elif(len(inStr) == 2):
             cont = findMove2(inStr, player)
             if cont:
@@ -232,6 +238,8 @@ def helpDialogue():
     print("| type 'h' to display this dialogue again                          |")
     print("| type 'l' to display the game log of all the moves made           |")
     print("| type 'm' to display all moves available to you                   |")
+    print("| type 'b' to change the board size                                |")
+    print("| type 'd' to display the board again                              |")
     print("--------------------------------------------------------------------\n")
 
 # display move log
@@ -240,3 +248,23 @@ def logDisp(board):
     for t in board.log:
         print(t)
     print("------------")
+
+# select a board
+def boardSelect(board):
+    print("which board size would you like?\n(small=1, medium=2, large=3, extralarge=4, 'enter' to leave)")
+    while(True):
+        num = input("")
+        if(num == "1"):
+            board.boardSize = 1
+            board.display()
+            break
+        elif(num == "2"):
+            print("this board size is not supported yet, only small and extralarge are functional")
+        elif(num == "3"):
+            print("this board size is not supported yet, only small and extralarge are functional")
+        elif(num == "4"):
+            board.boardSize = 4
+            board.display()
+            break
+        elif(num == ""):
+            break

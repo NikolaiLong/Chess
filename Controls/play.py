@@ -96,12 +96,12 @@ print("\nyoo, i hope your day has been going well; maybe some chess could make i
 print("\nwhat would you like to do?")
 while True:
     toDo = input("type: '2' for two player or '1' for one player: ")
-    if toDo == '2' or toDo == '1':
+    if toDo == '2' or toDo == '1' or toDo == '':
         break
     print("incorrect input, try again...")
 print()
 print(start)
-if toDo == "2":
+if toDo == "2" or toDo == "":
     play2()
 else:
     print("the computer has not been taught how to play chess yet, sorry")

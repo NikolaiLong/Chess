@@ -81,6 +81,47 @@ class Pawn(Piece):
     def display(self):
         return self.color+'P'
 
+    def display4(self, color, index):
+        if self.color == 'w':
+            if color == 'w':
+                if(index == 0):
+                    return "|##################"
+                elif(index == 1):
+                    return "|#####   ~~   #####"
+                elif(index == 2):
+                    return "|#####  (  )  #####"
+                elif(index == 3):
+                    return "|#####  )__(  #####"
+                return "|##### (____) #####"
+            if(index == 0):
+                return "|                  "
+            elif(index == 1):
+                return "|        ~~        "
+            elif(index == 2):
+                return "|       (  )       "
+            elif(index == 3):
+                return "|       )__(       "
+            return "|      (____)      "
+        if color == 'w':
+            if(index == 0):
+                return "|##################"
+            elif(index == 1):
+                return "|#####  _==_  #####"
+            elif(index == 2):
+                return "|#####  \  /  #####"
+            elif(index == 3):
+                return "|#####  /__\  #####"
+            return "|##### [____] #####"
+        if(index == 0):
+            return "|                  "
+        elif(index == 1):
+            return "|       _==_       "
+        elif(index == 2):
+            return "|       \  /       "
+        elif(index == 3):
+            return "|       /__\       "
+        return "|      [____]      "
+
     def positionNice(self):
         pos = ''
         if(self.position[0] == 0):
@@ -149,6 +190,47 @@ class Rook(Piece):
     def display(self):
         return self.color+'R'
 
+    def display4(self, color, index):
+        if self.color == 'w':
+            if color == 'w':
+                if(index == 0):
+                    return "|###  __ __ __  ###"
+                elif(index == 1):
+                    return "|### (_ U  U _) ###"
+                elif(index == 2):
+                    return "|###  )      (  ###"
+                elif(index == 3):
+                    return "|### (__~__~__) ###"
+                return "|### (________) ###"
+            if(index == 0):
+                return "|     __ __ __     "
+            elif(index == 1):
+                return "|    (_ U  U _)    "
+            elif(index == 2):
+                return "|     )      (     "
+            elif(index == 3):
+                return "|    (__~__~__)    "
+            return "|    (________)    "
+        if color == 'w':
+            if(index == 0):
+                return "|###  __ __ __  ###"
+            elif(index == 1):
+                return "|### [_ V  V _] ###"
+            elif(index == 2):
+                return "|###  /      \  ###"
+            elif(index == 3):
+                return "|### /__=__=__\ ###"
+            return "|### [________] ###"
+        if(index == 0):
+            return "|     __ __ __     "
+        elif(index == 1):
+            return "|    [_ V  V _]    "
+        elif(index == 2):
+            return "|     /      \     "
+        elif(index == 3):
+            return "|    /__=__=__\    "
+        return "|    [________]    "
+
     def positionNice(self):
         pos = ''
         if(self.position[0] == 0):
@@ -195,6 +277,47 @@ class Knight(Piece):
     # display self
     def display(self):
         return self.color+'N'
+
+    def display4(self, color, index):
+        if self.color == 'w':
+            if color == 'w':
+                if(index == 0):
+                    return "|####  ____^^  ####"
+                elif(index == 1):
+                    return "|#### (__ ~  ) ####"
+                elif(index == 2):
+                    return "|####   )   )  ####"
+                elif(index == 3):
+                    return "|####  (____)  ####"
+                return "|#### (______) ####"
+            if(index == 0):
+                return "|      ____^^      "
+            elif(index == 1):
+                return "|     (__ ~  )     "
+            elif(index == 2):
+                return "|       )   )      "
+            elif(index == 3):
+                return "|      (____)      "
+            return "|     (______)     "
+        if color == 'w':
+            if(index == 0):
+                return "|####  ^^____  ####"
+            elif(index == 1):
+                return "|#### [  = __] ####"
+            elif(index == 2):
+                return "|####  \   \   ####"
+            elif(index == 3):
+                return "|####  /____\  ####"
+            return "|#### [______] ####"
+        if(index == 0):
+            return "|      ^^____      "
+        elif(index == 1):
+            return "|     [  = __]     "
+        elif(index == 2):
+            return "|       \   \      "
+        elif(index == 3):
+            return "|      /____\      "
+        return "|     [______]     "
 
     def positionNice(self):
         pos = ''
@@ -263,7 +386,48 @@ class Bishop(Piece):
     # display self
     def display(self):
         return self.color+'B'
-    
+
+    def display4(self, color, index):
+        if self.color == 'w':
+            if color == 'w':
+                if(index == 0):
+                    return "|####    ()    ####"
+                elif(index == 1):
+                    return "|####   (  )   ####"
+                elif(index == 2):
+                    return "|####   )  (   ####"
+                elif(index == 3):
+                    return "|####  (_~~_)  ####"
+                return "|#### (______) ####"
+            if(index == 0):
+                return "|        ()        "
+            elif(index == 1):
+                return "|       (  )       "
+            elif(index == 2):
+                return "|       )  (       "
+            elif(index == 3):
+                return "|      (_~~_)      "
+            return "|     (______)     "
+        if color == 'w':
+            if(index == 0):
+                return "|####    /\    ####"
+            elif(index == 1):
+                return "|####   [  ]   ####"
+            elif(index == 2):
+                return "|####   \  /   ####"
+            elif(index == 3):
+                return "|####  /_==_\  ####"
+            return "|#### [______] ####"
+        if(index == 0):
+            return "|        /\        "
+        elif(index == 1):
+            return "|       [  ]       "
+        elif(index == 2):
+            return "|       \  /       "
+        elif(index == 3):
+            return "|      /_==_\      "
+        return "|     [______]     "
+
     def positionNice(self):
         pos = ''
         if(self.position[0] == 0):
@@ -360,6 +524,47 @@ class Queen(Piece):
     def display(self):
         return self.color+'Q'
 
+    def display4(self, color, index):
+        if self.color == 'w':
+            if color == 'w':
+                if(index == 0):
+                    return "|###   (_<>_)   ###"
+                elif(index == 1):
+                    return "|###   __)(__   ###"
+                elif(index == 2):
+                    return "|###   (~)(~)   ###"
+                elif(index == 3):
+                    return "|###  (__)(__)  ###"
+                return "|### (________) ###"
+            if(index == 0):
+                return "|      (_<>_)      "
+            elif(index == 1):
+                return "|      __)(__      "
+            elif(index == 2):
+                return "|      (~)(~)      "
+            elif(index == 3):
+                return "|     (__)(__)     "
+            return "|    (________)    "
+        if color == 'w':
+            if(index == 0):
+                return "|###   [_<>_]   ###"
+            elif(index == 1):
+                return "|###   __][__   ###"
+            elif(index == 2):
+                return "|###   [=][=]   ###"
+            elif(index == 3):
+                return "|###  /__][__\  ###"
+            return "|### [________] ###"
+        if(index == 0):
+            return "|      [_<>_]      "
+        elif(index == 1):
+            return "|      __][__      "
+        elif(index == 2):
+            return "|      [=][=]      "
+        elif(index == 3):
+            return "|     /__][__\     "
+        return "|    [________]    "
+
     def positionNice(self):
         pos = ''
         if(self.position[0] == 0):
@@ -411,6 +616,47 @@ class King(Piece):
     # display self
     def display(self):
         return self.color+'K'
+
+    def display4(self, color, index):
+        if self.color == 'w':
+            if color == 'w':
+                if(index == 0):
+                    return "|###     (+     ###"
+                elif(index == 1):
+                    return "|###  )__()__(  ###"
+                elif(index == 2):
+                    return "|###   ) () (   ###"
+                elif(index == 3):
+                    return "|###  )_~()~_(  ###"
+                return "|### (________) ###"
+            if(index == 0):
+                return "|        (+        "
+            elif(index == 1):
+                return "|     )__()__(     "
+            elif(index == 2):
+                return "|      ) () (      "
+            elif(index == 3):
+                return "|     )_~()~_(     "
+            return "|    (________)    "
+        if color == 'w':
+            if(index == 0):
+                return "|###     +]     ###"
+            elif(index == 1):
+                return "|###  ]__[]__[  ###"
+            elif(index == 2):
+                return "|###  \  []  /  ###"
+            elif(index == 3):
+                return "|###  /_=[]=_\  ###"
+            return "|### [________] ###"
+        if(index == 0):
+            return "|        +]        "
+        elif(index == 1):
+            return "|     ]__[]__[     "
+        elif(index == 2):
+            return "|     \  []  /     "
+        elif(index == 3):
+            return "|     /_=[]=_\     "
+        return "|    [________]    "
 
     def positionNice(self):
         pos = ''

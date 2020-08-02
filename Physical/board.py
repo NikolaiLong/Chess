@@ -18,6 +18,7 @@ class Board(object):
         self.wPlayer = Player('w', self)
         self.bPlayer = Player('b', self)
         self.gameOver = False
+        self.boardSize = 4
         self.turnNum = 1
         self.log = []
 
@@ -71,8 +72,19 @@ class Board(object):
                 return p
         return None
 
-    # prints the board
+    # choose which display
     def display(self):
+        if(self.boardSize == 2):
+            self.display2()
+        elif(self.boardSize == 3):
+            self.display3()
+        elif(self.boardSize == 4):
+            self.display4()
+        else:
+            self.display1()
+
+    # prints the small board
+    def display1(self):
         self.allocatePieces()
         for p in self.wPieces:
             self.grid[7-p.position[1], p.position[0]] = p
@@ -107,5 +119,107 @@ class Board(object):
             (self.grid[row,0].display(), self.grid[row,1].display(), self.grid[row,2].display(),
             self.grid[row,3].display(), self.grid[row,4].display(), self.grid[row,5].display(),
             self.grid[row,6].display(), self.grid[row,7].display()))
+
+    # prints the medium board
+    def display2(self):
+        pass
+
+    # prints the large board
+    def display3(self):
+        pass
+
+    # prints the extra large board
+    def display4(self):
+        self.allocatePieces()
+        for p in self.wPieces:
+            self.grid[7-p.position[1], p.position[0]] = p
+        for p in self.bPieces:
+            self.grid[7-p.position[1], p.position[0]] = p
+        for e in self.empty:
+            self.grid[7-e.position[1], e.position[0]] = e
+        self.printTop()
+        self.printEvenTop()
+        self.printRowEven(0)
+        self.printEvenBottom(8)
+        self.printOddTop()
+        self.printRowOdd(1)
+        self.printOddBottom(7)
+        self.printEvenTop()
+        self.printRowEven(2)
+        self.printEvenBottom(6)
+        self.printOddTop()
+        self.printRowOdd(3)
+        self.printOddBottom(5)
+        self.printEvenTop()
+        self.printRowEven(4)
+        self.printEvenBottom(4)
+        self.printOddTop()
+        self.printRowOdd(5)
+        self.printOddBottom(3)
+        self.printEvenTop()
+        self.printRowEven(6)
+        self.printEvenBottom(2)
+        self.printOddTop()
+        self.printRowOdd(7)
+        self.printOddBottom(1)
+        print("A                   B                  C                  D                  E                  F                  G                  H")
+    
+    def printTop(self):
+        for index in range(8):
+            print(" __________________", end="")
+        print()
+
+    def printEvenTop(self):
+        for index in range(4):
+            print("|##################|                  ", end="")
+        print("|")
+
+    def printEvenBottom(self,num):
+        print("%d##################|__________________" % (num), end="")
+        for index in range(3):
+            print("|##################|__________________", end="")
+        print("|")
+
+    def printOddTop(self):
+        for index in range(4):
+            print("|                  |##################", end="")
+        print("|")
+
+    def printOddBottom(self,num):
+        print("%d__________________|##################" % (num), end="")
+        for index in range(3):
+            print("|__________________|##################", end="")
+        print("|")
+    
+    def printRowEven(self, row):
+        for index in range(5):
+            col = 0
+            while col < 8:
+                self.printRow('w',index,col,row)
+                self.printRow('b',index,col+1,row)
+                col += 2
+            print("|")
+
+    def printRowOdd(self, row):
+        for index in range(5):
+            col = 0
+            while col < 8:
+                self.printRow('b',index,col,row)
+                self.printRow('w',index,col+1,row)
+                col += 2
+            print("|")
+
+    def printRow(self, color, index, column, row):
+        from pieces import Empty, Pawn, Rook, Knight, Bishop, Queen, King
+        p = self.grid[row,column]
+        if(type(p) == Empty):
+            if color == 'w':
+                print("|##################", end="")
+            else:
+                print("|                  ", end="")
+        else:
+            print(p.display4(color,index), end="")
+                
+
 #
 # End: Board Class #######################################################################################
