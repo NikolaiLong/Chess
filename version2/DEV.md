@@ -1,11 +1,10 @@
 
 
-to do:
-1. make a play file and a learn file
-  a. play file: controls for single/two player games
-  b. learn file: file to run ML algos to train models
-
 #### ML
+## AI Reference
+* DeepLearning.AI https://www.deeplearning.ai/ - courses
+* FastAI https://www.fast.ai/ - courses
+
 ## info
 * reiforcement learning (interaction with environment taking actions to maximize reward or minimize risk)
   - Markov Decision Process
@@ -24,19 +23,19 @@ RL Docs
 - https://www.v7labs.com/blog/deep-reinforcement-learning-guide#:~:text=Reinforcement%20Learning%20is%20a%20type,to%20maximize%20the%20total%20reward.
 
 ### Level 1
-* minimax decision tree
+* minimax decision tree [board] [black] [white] - {given rules}
 - https://towardsdatascience.com/algorithms-revisited-part-7-decision-trees-alpha-beta-pruning-9b711b6bf109
 - https://en.wikipedia.org/wiki/Minimax
 - https://www.simplilearn.com/the-power-of-decision-trees-in-machine-learning-article
 
 ### Level 2
-* neural network with reinforcement learning
+* neural network with reinforcement learning [board] - {learns rules}
 
 ### Level 3
-* CNN with reinforcement learning
+* CNN with reinforcement learning [board] - {learns rules}
 
 ### Level 4 (hypothetical)
-* CNN + random forest (for advanced feature classification)
+* CNN + random forest (for advanced feature classification) [board] - {learns rules}
 - random forest: https://www.simplilearn.com/tutorials/machine-learning-tutorial/random-forest-algorithm
 - https://www.frontiersin.org/articles/10.3389/fmolb.2019.00044/full
 - https://www.nature.com/articles/s41598-022-15374-5

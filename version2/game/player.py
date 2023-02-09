@@ -9,7 +9,7 @@ from board import Board
 ##########################################################################################
 
 class Player():
-  def __init__(self, machine: int, color : int, board : Board):
+  def __init__(self, machine: bool, color : int, board : Board):
     self.machine = machine
     self.color = color
     self.board = board

@@ -2,11 +2,41 @@
 import sys
 
 sys.path.append(".")
-from protocol import play
+from protocol import play, train
 
 sys.path.append("./game")
 from player import Player
 from board import Board
+
+
+##########################################################################################
+### run functions ########################################################################
+##########################################################################################
+
+
+def main():
+  start = "#########################################################################" + \
+    "#################"
+
+  print(
+    start + "\nwelcome to pop chess\n" + start + "\nhow would you like to proceed" + \
+    "\n0 - train a specified algorithm \n1 - play single player \n2 - play two player\n",
+    end=""
+  )
+
+  while 1:
+    match(input("")):
+      case '0':
+        run0()
+        break
+      case '1':
+        run1()
+        break
+      case '2':
+        run2()
+        break
+      case other:
+        print("type 0, 1, or 2")
 
 
 def run0():
@@ -14,19 +44,31 @@ def run0():
   black = Player(1, 1, board)
   white = Player(1, 0, board)
 
-  inpt = None
+  algo = None
   while 1:
     try:
-      inpt = int(input(
-        "\ntrain \n1 - naive neural net \n2 - convolusional neural net\n"
+      algo = int(input(
+        "\ntrain \n1 - neural net \n2 - convolusional neural net " + \
+        "\n3 - convolusional neural net with random forest\n"
       ))
     except:
-      print("type 1 or 2")
-    if (inpt == 1 or inpt == 2):
+      print("type 1, 2, or 3")
+    if (algo == 1 or algo == 2 or algo == 3):
+      break
+
+  diff = None
+  while 1:
+    try:
+      diff = int(input(
+        "\ndifficulty level easy(0), medium(1), or hard(2)\n"
+      ))
+    except:
+      print("type 0, 1, or 2")
+    if (diff == 0 or diff == 1 or diff == 2):
       break
   
   print("\ninitializing training")
-  play(board, black, white, inpt, True)
+  train(board, black, white, algo, diff)
   return 0
 
 
@@ -43,19 +85,31 @@ def run1():
   black = Player(not inpt, 1, board)
   white = Player(inpt, 0, board)
 
-  inpt = None
+  algo = None
   while 1:
     try:
-      inpt = int(input(
-        "\nplay against \n0 - decision tree (easy) \n1 - naive neural net (medium) \n2 - convolusional neural net (hard)\n"
+      algo = int(input(
+        "\nplay against what algorithm \n0 - decision tree \n1 - neural net " + \
+        "\n2 - convolusional neural net \n3 - convolusional neural net with random forest\n"
       ))
     except:
       print("type 0, 1, or 2")
-    if (inpt == 0 or inpt == 1 or inpt == 2):
+    if (algo == 0 or algo == 1 or algo == 2 or algo == 3):
+      break
+
+  diff = None
+  while 1:
+    try:
+      diff = int(input(
+        "\ndifficulty level easy(0), medium(1), or hard(2)\n"
+      ))
+    except:
+      print("type 0, 1, or 2")
+    if (diff == 0 or diff == 1 or diff == 2):
       break
 
   print("\ninitializing single player game")
-  play(board, black, white, inpt, False)
+  play(board, black, white, algo, diff)
   return 0
 
 
@@ -63,7 +117,9 @@ def run2():
   board = Board()
   black = Player(0, 1, board)
   white = Player(0, 0, board)
+
   print("\ninitializing two player game")
+  play(board, black, white, 0, 0)
   return 0
 
 
@@ -71,24 +127,7 @@ def run2():
 ### run ##################################################################################
 ##########################################################################################
 
-start = "##########################################################################################"
 
-print(
-  start + "\nwelcome to pop chess\n" + start + "\nhow would you like to proceed?" + \
-  "\n0 - train a specified algorithm \n1 - play single player \n2 - play two player\n",
-  end=""
-)
-
-while 1:
-  match(input("")):
-    case '0':
-      cont = run0()
-      break
-    case '1':
-      cont = run1()
-      break
-    case '2':
-      cont = run2()
-      break
-    case other:
-      print("type 0, 1, or 2")
+if __name__ == "__main__":
+  main()
+  
