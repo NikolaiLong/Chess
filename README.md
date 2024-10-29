@@ -1,9 +1,7 @@
 # Chess!
 
-!##############!  
-!## COPYRIGHT: ##!  
-!## igor's library ##!  
-!##############!
+#### Welcome to my long-term personal research project, aimed at creating a neural network capable of playing complex games like chess against me and you. 
+Similar to Google's Alpha Zero, which was my inspiration. There's a lot of work to be done so stay tuned for updates!
 
 #### Updates Coming Soon:
 * log file upload to resume a position
